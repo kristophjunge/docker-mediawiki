@@ -1,0 +1,55 @@
+version: '2'
+services:
+  wiki:
+    build: .
+    environment:
+      WIKI_HTTPS: 1
+      WIKI_SMTP: 1
+      WIKI_SMTP_SSL_VERIFY_PEER: 0
+      WIKI_SERVER: https://localhost:8080
+      WIKI_SITENAME: MyWiki
+      WIKI_LANGUAGE_CODE: de
+      WIKI_SECRET_KEY: ${SECRET_KEY}
+      #WIKI_META_NAMESPACE: MyNamespace
+      WIKI_DB_TYPE: mysql
+      WIKI_DB_HOST: db
+      WIKI_DB_PORT: 3306
+      WIKI_DB_NAME: wikidb
+      WIKI_DB_USER: wikiuser
+      #WIKI_DB_PREFIX: wiki_
+      WIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=binary
+      WIKI_DB_PASSWORD: ${DB_PASSWORD}
+      WIKI_ENABLE_UPLOADS: 1
+      WIKI_DEFAULT_SKIN: vector
+      WIKI_SMTP_HOST: ${SMTP_HOST}
+      WIKI_SMTP_IDHOST: ${SMTP_IDHOST}
+      WIKI_SMTP_PORT: 587
+      WIKI_SMTP_AUTH: 1
+      WIKI_SMTP_USERNAME: ${SMTP_USERNAME}
+      WIKI_SMTP_PASSWORD: ${SMTP_PASSWORD}
+      WIKI_EMERGENCY_CONTACT: ${EMERGENCY_CONTACT}
+      WIKI_PASSWORD_SENDER: ${PASSWORD_SENDER}
+      WIKI_DEBUG: 0
+    ports:
+    - "8079:80"
+    - "8080:443"
+    links:
+    - db:db
+    volumes:
+    - /srv/mediawiki/images:/var/www/mediawiki/images
+    - ./testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
+    - ./testdata/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro
+    - ./testdata/ssl/private.key:/etc/ssl/crt/private.key:ro
+    - ./testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: wikidb
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Debug
+    ports:
+    - "3309:3306" # Debug
+    volumes:
+    - /srv/mediawiki/mysql:/var/lib/mysql
