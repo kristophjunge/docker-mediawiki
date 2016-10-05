@@ -130,7 +130,7 @@ WORKDIR /var/www/mediawiki
 
 # Copy install and update script
 RUN mkdir /script
-COPY script/* /script
+COPY script/* /script/
 
 # General setup
 VOLUME ["/var/cache/nginx", "/var/www/mediawiki/images"]
