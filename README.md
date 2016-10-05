@@ -1,4 +1,4 @@
-# <a name="top"></a>Docker MediaWiki
+# Docker MediaWiki
 
 Docker container for [MediaWiki](https://www.mediawiki.org) running under [Nginx](https://www.nginx.com) and [PHP-FPM](https://php-fpm.org/). Based on the official PHP7 [images](https://hub.docker.com/_/php/).
 
@@ -7,7 +7,7 @@ Packaged with the [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) pl
 This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [supervisord](http://supervisord.org/).
 
 
-## <a name="features"></a>Features ##
+## Features ##
 
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
@@ -20,11 +20,11 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 - SMTP E-Mail with workaround for self-signed certificates
 - Packed with 4 common skins (CologneBlue, Modern, MonoBook, Vector)
 
-## <a name="configuration"></a>Configuration
+## Configuration
 
 All configuration examples are given in docker-compose YAML version 2 format.
 
-### <a name="general"></a>General
+### General
 
 Set the mandatory environment variables:
 * Set `WIKI_SERVER` to your wiki's primary domain, prefixed with the primary protocol.
@@ -45,7 +45,7 @@ ports:
 - "80:80"
 ```
 
-### <a name="https"></a>HTTPS
+### HTTPS
 
 To enable HTTPS set the environment variable `WIKI_HTTPS` to 1. With HTTPS the server variable `WIKI_SERVER` should start with `https://`.
 
@@ -74,12 +74,12 @@ volumes:
 When `WIKI_HTTPS` is set to 1 all requests to HTTP URLs will be redirected to HTTPS to enforce a secure connection.
 
 
-### <a name="database"></a>Database
+### Database
 
 The container does not include a database server. You have to configure an external database.
 
 
-#### <a name="mysql"></a>MySQL
+#### MySQL
 
 Setup the MySQL configuration environment variables.
 
@@ -93,7 +93,7 @@ environment:
   WIKI_DB_PASSWORD: mysecret
 ```
 
-### <a name="uploads"></a>Uploads
+### Uploads
 
 To enable file uploads set the environment variable `WIKI_ENABLE_UPLOADS` to 1.
 
@@ -117,7 +117,7 @@ volumes:
 ```
 
 
-### <a name="email"></a>E-Mail
+### E-Mail
 
 SMTP E-Mail can be enabled by setting `WIKI_SMTP` to 1. TLS auth will be used by default.
 
@@ -137,7 +137,7 @@ Using a self-signed certificate will not work because of failing peer verificati
 If you know the security implications you can disable peer verification by setting `WIKI_SMTP_SSL_VERIFY_PEER` to 0.
 
 
-### <a name="logo"></a>Logo
+### Logo
 
 You can setup your own logo by mounting a PNG file.
 
@@ -146,7 +146,7 @@ volumes:
 - ./srv/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
 ```
 
-### <a name="skins"></a>Skins
+### Skins
 
 You can change the default skin by setting the environment variable `WIKI_DEFAULT_SKIN`.
 
@@ -169,7 +169,7 @@ volumes:
 - ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
 ```
 
-### <a name="extensions"></a>Extensions
+### Extensions
 
 You can add more extensions by mounting them.
 
@@ -178,7 +178,7 @@ volumes:
 - ./srv/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
 ```
 
-### <a name="additional-configuration"></a>Additional configuration
+### Additional configuration
 
 You can add own PHP configuration values by mounting an additional configuration file that is loaded at the end of the generic configuration file.
 
@@ -194,7 +194,7 @@ $ docker exec -i -t dockermediawiki_wiki_1 cat /var/www/mediawiki/ExtraLocalSett
 ```
 
 
-### <a name="configuration-file"></a>Configuration file
+### Configuration file
 
 Beside the docker like configuration with environment variables you still can use your own full `LocalSettings.php` file.
 
@@ -206,9 +206,9 @@ volumes:
 ```
 
 
-## <a name="installation"></a>Installation
+## Installation
 
-If you are upgrading from a previous installation watch the section below [Upgrade from an existing installation](#upgrade-from-existing).
+If you are upgrading from a previous installation watch the section below "Upgrade from an existing installation".
 
 Start the container and run the following script which is a wrapper for the MediaWiki installer.
 Insert username and password for your admin account.
@@ -227,7 +227,7 @@ environment:
 You should be able to browse your wiki at this point.
 
 
-## <a name="upgrade-from-existing"></a>Upgrade from an existing installation
+## Upgrade from an existing installation
 
 Copy the contents of the `images` folder of your old media wiki installation into the `images` mount source.
 
@@ -254,18 +254,18 @@ $ docker exec -i -t dockermediawiki_wiki_1 /update.sh
 You should be able to browse your wiki at this point.
 
 
-## <a name="full-configuration-example"></a>Full configuration example
+## Full configuration example
 
 A full docker-compose configuration with MySQL can be found [here](https://github.com/kristophjunge/docker-mediawiki/blob/master/docker-compose.yml).
 
 
-## <a name="configuration-reference"></a>Configuration reference
+## Configuration reference
 
 Below is a list of all environment variables supported by the container.
 
-When using an own `LocalSettings.php` file according to the section [Configuration file](#configuration-file) most variables be unusable.
+When using an own `LocalSettings.php` file according to the section "Configuration file" most variables be unusable.
 
-To modify configuration values that are not listed below read the section [Additional configuration](#additional-configuration).
+To modify configuration values that are not listed below read the section "Additional configuration".
 
 More information about the configuration values can be found at MediaWiki's [documentation](https://www.mediawiki.org/wiki/Manual:Configuration_settings).
 
@@ -302,7 +302,7 @@ More information about the configuration values can be found at MediaWiki's [doc
 | WIKI_PASSWORD_SENDER | $wgPasswordSender | E-Mail sender for password forgot mails |
 
 
-## <a name="security"></a>Security
+## Security
 
 * Nginx and PHP-FPM worker processes run under the `www-data` user with UID 999 and GID 999.
 * Parsoid runs under the `parsoid` user.
@@ -311,6 +311,6 @@ More information about the configuration values can be found at MediaWiki's [doc
 * The Parsoid files are all owned by `root`.
 
 
-## <a name="known-issues"></a>Known issues
+## Known issues
 
 * Sessions are stored in memory via APC and will be lost after container stop.
