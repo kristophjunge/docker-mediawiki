@@ -129,7 +129,8 @@ RUN tar -xzf /tmp/skin-vector.tar.gz -C /var/www/mediawiki/skins && \
 WORKDIR /var/www/mediawiki
 
 # Copy install and update script
-COPY script/* /
+RUN mkdir /script
+COPY script/* /script
 
 # General setup
 VOLUME ["/var/cache/nginx", "/var/www/mediawiki/images"]

@@ -214,7 +214,7 @@ Start the container and run the following script which is a wrapper for the Medi
 Insert username and password for your admin account.
 
 ```
-$ docker exec -i -t dockermediawiki_wiki_1 /install.sh <username> <password>
+$ docker exec -i -t dockermediawiki_wiki_1 /script/install.sh <username> <password>
 ```
 
 Copy the secret key that the script dumps and put it into an environment variable.
@@ -248,7 +248,7 @@ environment:
 Start the container and run the following script which is a wrapper for the MediaWiki updater.
 
 ```
-$ docker exec -i -t dockermediawiki_wiki_1 /update.sh
+$ docker exec -i -t dockermediawiki_wiki_1 /script/update.sh
 ```
 
 You should be able to browse your wiki at this point.
