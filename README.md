@@ -20,9 +20,11 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 - SMTP E-Mail with workaround for self-signed certificates
 - Packed with 4 common skins (CologneBlue, Modern, MonoBook, Vector)
 
+
 ## Configuration
 
 All configuration examples are given in docker-compose YAML version 2 format.
+
 
 ### General
 
@@ -44,6 +46,7 @@ Open port for HTTP communication.
 ports:
 - "80:80"
 ```
+
 
 ### HTTPS
 
@@ -92,6 +95,7 @@ environment:
   WIKI_DB_USER: wikiuser
   WIKI_DB_PASSWORD: mysecret
 ```
+
 
 ### Uploads
 
@@ -146,6 +150,7 @@ volumes:
 - ./srv/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
 ```
 
+
 ### Skins
 
 You can change the default skin by setting the environment variable `WIKI_DEFAULT_SKIN`.
@@ -169,6 +174,7 @@ volumes:
 - ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
 ```
 
+
 ### Extensions
 
 You can add more extensions by mounting them.
@@ -177,6 +183,7 @@ You can add more extensions by mounting them.
 volumes:
 - ./srv/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
 ```
+
 
 ### Additional configuration
 
