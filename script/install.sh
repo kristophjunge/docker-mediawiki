@@ -5,11 +5,11 @@ cd /var/www/mediawiki
 mv ./LocalSettings.php /tmp/LocalSettings.php
 
 php maintenance/install.php Wiki $1 --pass=$2 \
- --dbport=$WIKI_DB_PORT \
- --dbserver=$WIKI_DB_HOST \
- --installdbuser=$WIKI_DB_USER \
- --installdbpass=$WIKI_DB_PASSWORD \
- --dbname=$WIKI_DB_NAME
+ --dbport=$MEDIAWIKI_DB_PORT \
+ --dbserver=$MEDIAWIKI_DB_HOST \
+ --installdbuser=$MEDIAWIKI_DB_USER \
+ --installdbpass=$MEDIAWIKI_DB_PASSWORD \
+ --dbname=$MEDIAWIKI_DB_NAME
 
 echo ""
 grep '$wgSecret' LocalSettings.php

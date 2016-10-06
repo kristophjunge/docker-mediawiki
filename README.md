@@ -7,7 +7,7 @@ Packaged with the [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) pl
 This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [supervisord](http://supervisord.org/).
 
 
-## Features ##
+## Features
 
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
@@ -21,6 +21,15 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 - Packed with 4 common skins (CologneBlue, Modern, MonoBook, Vector)
 
 
+## Usage
+
+```
+docker run --name some-mediawiki \
+    --link some-mysql:mysql \
+    -v /local/data/path:/data:rw \
+    -d kristophjunge/mediawiki
+```
+
 ## Configuration
 
 All configuration examples are given in docker-compose YAML version 2 format.
@@ -29,15 +38,15 @@ All configuration examples are given in docker-compose YAML version 2 format.
 ### General
 
 Set the mandatory environment variables:
-* Set `WIKI_SERVER` to your wiki's primary domain, prefixed with the primary protocol.
-* Set `WIKI_SITENAME` to your wiki's name.
-* Set `WIKI_LANGUAGE_CODE` to a language code of this [list](https://doc.wikimedia.org/mediawiki-core/master/php/Names_8php_source.html).
+* Set `MEDIAWIKI_SERVER` to your wiki's primary domain, prefixed with the primary protocol.
+* Set `MEDIAWIKI_SITENAME` to your wiki's name.
+* Set `MEDIAWIKI_LANGUAGE_CODE` to a language code of this [list](https://doc.wikimedia.org/mediawiki-core/master/php/Names_8php_source.html).
 
 ```
 environment:
-  WIKI_SERVER: http://wiki.example.com
-  WIKI_SITENAME: MyWiki
-  WIKI_LANGUAGE_CODE: en
+  MEDIAWIKI_SERVER: http://wiki.example.com
+  MEDIAWIKI_SITENAME: MyWiki
+  MEDIAWIKI_LANGUAGE_CODE: en
 ```
 
 Open port for HTTP communication.
@@ -50,12 +59,12 @@ ports:
 
 ### HTTPS
 
-To enable HTTPS set the environment variable `WIKI_HTTPS` to 1. With HTTPS the server variable `WIKI_SERVER` should start with `https://`.
+To enable HTTPS set the environment variable `MEDIAWIKI_HTTPS` to 1. With HTTPS the server variable `MEDIAWIKI_SERVER` should start with `https://`.
 
 ```
 environment:
-  WIKI_HTTPS: 1
-  WIKI_SERVER: https://wiki.example.com
+  MEDIAWIKI_HTTPS: 1
+  MEDIAWIKI_SERVER: https://wiki.example.com
 ```
 
 Open port for HTTPS communication.
@@ -74,7 +83,7 @@ volumes:
 ```
 
 
-When `WIKI_HTTPS` is set to 1 all requests to HTTP URLs will be redirected to HTTPS to enforce a secure connection.
+When `MEDIAWIKI_HTTPS` is set to 1 all requests to HTTP URLs will be redirected to HTTPS to enforce a secure connection.
 
 
 ### Database
@@ -88,22 +97,22 @@ Setup the MySQL configuration environment variables.
 
 ```
 environment:
-  WIKI_DB_TYPE: mysql
-  WIKI_DB_HOST: db
-  WIKI_DB_PORT: 3306
-  WIKI_DB_NAME: wikidb
-  WIKI_DB_USER: wikiuser
-  WIKI_DB_PASSWORD: mysecret
+  MEDIAWIKI_DB_TYPE: mysql
+  MEDIAWIKI_DB_HOST: db
+  MEDIAWIKI_DB_PORT: 3306
+  MEDIAWIKI_DB_NAME: wikidb
+  MEDIAWIKI_DB_USER: wikiuser
+  MEDIAWIKI_DB_PASSWORD: mysecret
 ```
 
 
 ### Uploads
 
-To enable file uploads set the environment variable `WIKI_ENABLE_UPLOADS` to 1.
+To enable file uploads set the environment variable `MEDIAWIKI_ENABLE_UPLOADS` to 1.
 
 ```
 environment:
-  WIKI_ENABLE_UPLOADS: 1
+  MEDIAWIKI_ENABLE_UPLOADS: 1
 ```
 
 Create a folder on your host system and set correct owner.
@@ -123,22 +132,22 @@ volumes:
 
 ### E-Mail
 
-SMTP E-Mail can be enabled by setting `WIKI_SMTP` to 1. TLS auth will be used by default.
+SMTP E-Mail can be enabled by setting `MEDIAWIKI_SMTP` to 1. TLS auth will be used by default.
 
 
 ```
 environment:
-  WIKI_SMTP: 1
-  WIKI_SMTP_HOST: smtp.example.com
-  WIKI_SMTP_IDHOST: example.com
-  WIKI_SMTP_PORT: 587
-  WIKI_SMTP_AUTH: 1
-  WIKI_SMTP_USERNAME: mail@example.com
-  WIKI_SMTP_PASSWORD: secret
+  MEDIAWIKI_SMTP: 1
+  MEDIAWIKI_SMTP_HOST: smtp.example.com
+  MEDIAWIKI_SMTP_IDHOST: example.com
+  MEDIAWIKI_SMTP_PORT: 587
+  MEDIAWIKI_SMTP_AUTH: 1
+  MEDIAWIKI_SMTP_USERNAME: mail@example.com
+  MEDIAWIKI_SMTP_PASSWORD: secret
 ```
 
 Using a self-signed certificate will not work because of failing peer verification.
-If you know the security implications you can disable peer verification by setting `WIKI_SMTP_SSL_VERIFY_PEER` to 0.
+If you know the security implications you can disable peer verification by setting `MEDIAWIKI_SMTP_SSL_VERIFY_PEER` to 0.
 
 
 ### Logo
@@ -153,11 +162,11 @@ volumes:
 
 ### Skins
 
-You can change the default skin by setting the environment variable `WIKI_DEFAULT_SKIN`.
+You can change the default skin by setting the environment variable `MEDIAWIKI_DEFAULT_SKIN`.
 
 ```
 environment:
-  WIKI_DEFAULT_SKIN: vector
+  MEDIAWIKI_DEFAULT_SKIN: vector
 ```
 
 These 4 common skins are packaged with the container:
@@ -205,7 +214,7 @@ $ docker exec -i -t dockermediawiki_wiki_1 cat /var/www/mediawiki/ExtraLocalSett
 
 Beside the docker like configuration with environment variables you still can use your own full `LocalSettings.php` file.
 
-However this will make all environment variables unusable except `WIKI_HTTPS` and `WIKI_SMTP_SSL_VERIFY_PEER`.
+However this will make all environment variables unusable except `MEDIAWIKI_HTTPS` and `MEDIAWIKI_SMTP_SSL_VERIFY_PEER`.
 
 ```
 volumes:
@@ -228,7 +237,7 @@ Copy the secret key that the script dumps and put it into an environment variabl
 
 ```
 environment:
-  WIKI_SECRET_KEY: secretkey
+  MEDIAWIKI_SECRET_KEY: secretkey
 ```
 
 You should be able to browse your wiki at this point.
@@ -242,14 +251,14 @@ Find the secret key variable `$wgSecretKey` in the `LocalSettings.php` file of y
 
 ```
 environment:
-  WIKI_SECRET_KEY: secretkey
+  MEDIAWIKI_SECRET_KEY: secretkey
 ```
 
 If you are using MySQL find the variable `$wgDBTableOptions` in the `LocalSettings.php` file of your old installation and place its value into an environment variable.
 
 ```
 environment:
-  WIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=binary
+  MEDIAWIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=binary
 ```
 
 Start the container and run the following script which is a wrapper for the MediaWiki updater.
@@ -278,35 +287,35 @@ More information about the configuration values can be found at MediaWiki's [doc
 
 | Environment Variable | MediaWiki Config | Description |
 |---|---|---|
-| WIKI_HTTPS | - | Enable HTTP, Default 0 |
-| WIKI_SMTP | - | Enable SMTP mailing, Default 0 |
-| WIKI_SMTP_SSL_VERIFY_PEER | - | Disable SMTP auth SSL peer verification, Default 0 |
-| WIKI_DEBUG | - | Enable mediawiki's debug log, Logged to /tmp/wiki-debug.log |
-| WIKI_SERVER | $wgServer | The primary URL of the server prefixed with protocol |
-| WIKI_SITENAME | $wgSitename | Name of the wiki |
-| WIKI_LANGUAGE_CODE | $wgLanguageCode | Language code for wiki language |
-| WIKI_META_NAMESPACE | $wgMetaNamespace | Namespace, Defaults to WIKI_SITENAME |
-| WIKI_SECRET_KEY | $wgSecretKey | Secret key |
-| WIKI_UPGRADE_KEY | $wgUpgradeKey | Upgrade key |
-| WIKI_DB_TYPE | $wgDBtype | Database type, Default is "mysql" |
-| WIKI_DB_HOST | $wgDBserver | Database host, Default is "127.0.0.1" |
-| WIKI_DB_PORT | $wgDBserver | Database port, Default is "3306" |
-| WIKI_DB_NAME | $wgDBname | Database name, Default is "wikidb" |
-| WIKI_DB_USER | $wgDBuser | Database user, Default is "wikiuser" |
-| WIKI_DB_PASSWORD | $wgDBpassword | Database password |
-| WIKI_DB_PREFIX | $wgDBprefix | Database table name prefix |
-| WIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |
-| WIKI_ENABLE_UPLOADS | $wgEnableUploads | Enable file uploads, Default 0 |
-| WIKI_FILE_EXTENSIONS | $wgFileExtensions | Allowed file extensions, comma separated |
-| WIKI_DEFAULT_SKIN | $wgDefaultSkin | Default skin, Default "vector" |
-| WIKI_SMTP_HOST | $wgSMTP | SMTP Host, like smtp.example.com |
-| WIKI_SMTP_IDHOST | $wgSMTP | Domain name, like example.com |
-| WIKI_SMTP_PORT | $wgSMTP | SMTP Port |
-| WIKI_SMTP_AUTH | $wgSMTP | Enable SMTP auth, Default 0 |
-| WIKI_SMTP_USERNAME | $wgSMTP | SMTP auth username |
-| WIKI_SMTP_PASSWORD | $wgSMTP | SMTP auth password |
-| WIKI_EMERGENCY_CONTACT | $wgEmergencyContact | Admin contact E-Mail |
-| WIKI_PASSWORD_SENDER | $wgPasswordSender | E-Mail sender for password forgot mails |
+| MEDIAWIKI_HTTPS | - | Enable HTTP, Default 0 |
+| MEDIAWIKI_SMTP | - | Enable SMTP mailing, Default 0 |
+| MEDIAWIKI_SMTP_SSL_VERIFY_PEER | - | Disable SMTP auth SSL peer verification, Default 0 |
+| MEDIAWIKI_DEBUG | - | Enable mediawiki's debug log, Logged to /tmp/wiki-debug.log |
+| MEDIAWIKI_SERVER | $wgServer | The primary URL of the server prefixed with protocol |
+| MEDIAWIKI_SITENAME | $wgSitename | Name of the wiki |
+| MEDIAWIKI_LANGUAGE_CODE | $wgLanguageCode | Language code for wiki language |
+| MEDIAWIKI_META_NAMESPACE | $wgMetaNamespace | Namespace, Defaults to MEDIAWIKI_SITENAME |
+| MEDIAWIKI_SECRET_KEY | $wgSecretKey | Secret key |
+| MEDIAWIKI_UPGRADE_KEY | $wgUpgradeKey | Upgrade key |
+| MEDIAWIKI_DB_TYPE | $wgDBtype | Database type, Default is "mysql" |
+| MEDIAWIKI_DB_HOST | $wgDBserver | Database host, Default is "127.0.0.1" |
+| MEDIAWIKI_DB_PORT | $wgDBserver | Database port, Default is "3306" |
+| MEDIAWIKI_DB_NAME | $wgDBname | Database name, Default is "wikidb" |
+| MEDIAWIKI_DB_USER | $wgDBuser | Database user, Default is "wikiuser" |
+| MEDIAWIKI_DB_PASSWORD | $wgDBpassword | Database password |
+| MEDIAWIKI_DB_PREFIX | $wgDBprefix | Database table name prefix |
+| MEDIAWIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |
+| MEDIAWIKI_ENABLE_UPLOADS | $wgEnableUploads | Enable file uploads, Default 0 |
+| MEDIAWIKI_FILE_EXTENSIONS | $wgFileExtensions | Allowed file extensions, comma separated |
+| MEDIAWIKI_DEFAULT_SKIN | $wgDefaultSkin | Default skin, Default "vector" |
+| MEDIAWIKI_SMTP_HOST | $wgSMTP | SMTP Host, like smtp.example.com |
+| MEDIAWIKI_SMTP_IDHOST | $wgSMTP | Domain name, like example.com |
+| MEDIAWIKI_SMTP_PORT | $wgSMTP | SMTP Port |
+| MEDIAWIKI_SMTP_AUTH | $wgSMTP | Enable SMTP auth, Default 0 |
+| MEDIAWIKI_SMTP_USERNAME | $wgSMTP | SMTP auth username |
+| MEDIAWIKI_SMTP_PASSWORD | $wgSMTP | SMTP auth password |
+| MEDIAWIKI_EMERGENCY_CONTACT | $wgEmergencyContact | Admin contact E-Mail |
+| MEDIAWIKI_PASSWORD_SENDER | $wgPasswordSender | E-Mail sender for password forgot mails |
 
 
 ## Security

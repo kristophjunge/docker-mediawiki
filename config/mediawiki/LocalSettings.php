@@ -7,14 +7,14 @@ if ( !defined( 'MEDIAWIKI' ) ) {
     exit;
 }
 
-if (getenv('WIKI_SITENAME') == '') {
-    throw new Exception('Missing environment variable WIKI_SITENAME');
+if (getenv('MEDIAWIKI_SITENAME') == '') {
+    throw new Exception('Missing environment variable MEDIAWIKI_SITENAME');
 } else {
-    $wgSitename = getenv('WIKI_SITENAME');
+    $wgSitename = getenv('MEDIAWIKI_SITENAME');
 }
 
-if (getenv('WIKI_META_NAMESPACE') != '') {
-    $wgMetaNamespace = getenv('WIKI_META_NAMESPACE');
+if (getenv('MEDIAWIKI_META_NAMESPACE') != '') {
+    $wgMetaNamespace = getenv('MEDIAWIKI_META_NAMESPACE');
 }
 
 # Short URLs
@@ -23,22 +23,22 @@ $wgArticlePath = "/$1";
 $wgUsePathInfo = true;
 $wgScriptExtension = ".php";
 
-if (getenv('WIKI_SERVER') == '') {
-    throw new Exception('Missing environment variable WIKI_SERVER');
+if (getenv('MEDIAWIKI_SERVER') == '') {
+    throw new Exception('Missing environment variable MEDIAWIKI_SERVER');
 } else {
-    $wgServer = getenv('WIKI_SERVER');
+    $wgServer = getenv('MEDIAWIKI_SERVER');
 }
 
 $wgResourceBasePath = $wgScriptPath;
 
 $wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
 
-if (getenv('WIKI_EMERGENCY_CONTACT') != '') {
-    $wgEmergencyContact = getenv('WIKI_EMERGENCY_CONTACT');
+if (getenv('MEDIAWIKI_EMERGENCY_CONTACT') != '') {
+    $wgEmergencyContact = getenv('MEDIAWIKI_EMERGENCY_CONTACT');
 }
 
-if (getenv('WIKI_PASSWORD_SENDER') != '') {
-    $wgPasswordSender = getenv('WIKI_PASSWORD_SENDER');
+if (getenv('MEDIAWIKI_PASSWORD_SENDER') != '') {
+    $wgPasswordSender = getenv('MEDIAWIKI_PASSWORD_SENDER');
 }
 
 $wgEnotifUserTalk = false;
@@ -46,37 +46,37 @@ $wgEnotifWatchlist = false;
 $wgEmailAuthentication = true;
 
 $wgDBtype = "mysql";
-if (getenv('WIKI_DB_TYPE') != '') {
-    $wgDBtype = getenv('WIKI_DB_TYPE');
+if (getenv('MEDIAWIKI_DB_TYPE') != '') {
+    $wgDBtype = getenv('MEDIAWIKI_DB_TYPE');
 }
 
-$hostname = ((getenv('WIKI_DB_HOST') != '') ? getenv('WIKI_DB_HOST') : '127.0.0.1');
-$port = ((getenv('WIKI_DB_PORT') != '') ? getenv('WIKI_DB_PORT') : '3306');
+$hostname = ((getenv('MEDIAWIKI_DB_HOST') != '') ? getenv('MEDIAWIKI_DB_HOST') : '127.0.0.1');
+$port = ((getenv('MEDIAWIKI_DB_PORT') != '') ? getenv('MEDIAWIKI_DB_PORT') : '3306');
 $wgDBserver = $hostname.':'.$port;
 
 unset($hostname, $port);
 
 $wgDBname = "wikidb";
-if (getenv('WIKI_DB_NAME') != '') {
-    $wgDBname = getenv('WIKI_DB_NAME');
+if (getenv('MEDIAWIKI_DB_NAME') != '') {
+    $wgDBname = getenv('MEDIAWIKI_DB_NAME');
 }
 
 $wgDBuser = "wikiuser";
-if (getenv('WIKI_DB_USER') != '') {
-    $wgDBuser = getenv('WIKI_DB_USER');
+if (getenv('MEDIAWIKI_DB_USER') != '') {
+    $wgDBuser = getenv('MEDIAWIKI_DB_USER');
 }
 
-if (getenv('WIKI_DB_PASSWORD') != '') {
-    $wgDBpassword = getenv('WIKI_DB_PASSWORD');
+if (getenv('MEDIAWIKI_DB_PASSWORD') != '') {
+    $wgDBpassword = getenv('MEDIAWIKI_DB_PASSWORD');
 }
 
 # MySQL specific settings
-if (getenv('WIKI_DB_PREFIX') != '') {
-    $wgDBprefix = getenv('WIKI_DB_PREFIX');
+if (getenv('MEDIAWIKI_DB_PREFIX') != '') {
+    $wgDBprefix = getenv('MEDIAWIKI_DB_PREFIX');
 }
 
-if (getenv('WIKI_DB_TABLE_OPTIONS') != '') {
-    $wgDBTableOptions = getenv('WIKI_DB_TABLE_OPTIONS');
+if (getenv('MEDIAWIKI_DB_TABLE_OPTIONS') != '') {
+    $wgDBTableOptions = getenv('MEDIAWIKI_DB_TABLE_OPTIONS');
 }
 
 $wgDBmysql5 = false;
@@ -85,12 +85,12 @@ $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
 
 $wgEnableUploads = false;
-if (getenv('WIKI_ENABLE_UPLOADS') == '1') {
+if (getenv('MEDIAWIKI_ENABLE_UPLOADS') == '1') {
     $wgEnableUploads = true;
 }
 
-if (getenv('WIKI_FILE_EXTENSIONS') != '') {
-    foreach (explode(', ', getenv('WIKI_FILE_EXTENSIONS')) as $extension) {
+if (getenv('MEDIAWIKI_FILE_EXTENSIONS') != '') {
+    foreach (explode(', ', getenv('MEDIAWIKI_FILE_EXTENSIONS')) as $extension) {
         $wgFileExtensions[] = trim($extension);
     }
 }
@@ -100,18 +100,18 @@ $wgImageMagickConvertCommand = "/usr/bin/convert";
 $wgUseInstantCommons = false;
 $wgShellLocale = "C.UTF-8";
 
-if (getenv('WIKI_LANGUAGE_CODE') != '') {
-    $wgLanguageCode = getenv('WIKI_LANGUAGE_CODE');
+if (getenv('MEDIAWIKI_LANGUAGE_CODE') != '') {
+    $wgLanguageCode = getenv('MEDIAWIKI_LANGUAGE_CODE');
 }
 
-if (getenv('WIKI_SECRET_KEY') == '') {
-    throw new Exception('Missing environment variable WIKI_SECRET_KEY');
+if (getenv('MEDIAWIKI_SECRET_KEY') == '') {
+    throw new Exception('Missing environment variable MEDIAWIKI_SECRET_KEY');
 } else {
-    $wgSecretKey = getenv('WIKI_SECRET_KEY');
+    $wgSecretKey = getenv('MEDIAWIKI_SECRET_KEY');
 }
 
-if (getenv('WIKI_UPGRADE_KEY') != '') {
-    $wgUpgradeKey = getenv('WIKI_UPGRADE_KEY');
+if (getenv('MEDIAWIKI_UPGRADE_KEY') != '') {
+    $wgUpgradeKey = getenv('MEDIAWIKI_UPGRADE_KEY');
 }
 
 $wgAuthenticationTokenVersion = "1";
@@ -123,8 +123,8 @@ $wgGroupPermissions['*']['edit'] = false;
 $wgGroupPermissions['*']['read'] = false;
 
 $wgDefaultSkin = "vector";
-if (getenv('WIKI_DEFAULT_SKIN') != '') {
-    $wgDefaultSkin = getenv('WIKI_DEFAULT_SKIN');
+if (getenv('MEDIAWIKI_DEFAULT_SKIN') != '') {
+    $wgDefaultSkin = getenv('MEDIAWIKI_DEFAULT_SKIN');
 }
 
 # Enabled skins
@@ -134,7 +134,7 @@ wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
 # Debug
-if (getenv('WIKI_DEBUG') == '1') {
+if (getenv('MEDIAWIKI_DEBUG') == '1') {
     $wgShowExceptionDetails = true;
     $wgShowSQLErrors = true;
     $wgDebugDumpSql = true;
@@ -142,16 +142,16 @@ if (getenv('WIKI_DEBUG') == '1') {
 }
 
 # SMTP E-Mail
-if (getenv('WIKI_SMTP') == '1') {
+if (getenv('MEDIAWIKI_SMTP') == '1') {
     $wgEnableEmail = true;
     $wgEnableUserEmail = true;
     $wgSMTP = array(
-        'host'     => getenv('WIKI_SMTP_HOST'), // could also be an IP address. Where the SMTP server is located
-        'IDHost'   => getenv('WIKI_SMTP_IDHOST'), // Generally this will be the domain name of your website (aka mywiki.org)
-        'port'     => getenv('WIKI_SMTP_PORT'), // Port to use when connecting to the SMTP server
-        'auth'     => (getenv('WIKI_SMTP_AUTH') == '1'), // Should we use SMTP authentication (true or false)
-        'username' => getenv('WIKI_SMTP_USERNAME'), // Username to use for SMTP authentication (if being used)
-        'password' => getenv('WIKI_SMTP_PASSWORD') // Password to use for SMTP authentication (if being used)
+        'host'     => getenv('MEDIAWIKI_SMTP_HOST'), // could also be an IP address. Where the SMTP server is located
+        'IDHost'   => getenv('MEDIAWIKI_SMTP_IDHOST'), // Generally this will be the domain name of your website (aka mywiki.org)
+        'port'     => getenv('MEDIAWIKI_SMTP_PORT'), // Port to use when connecting to the SMTP server
+        'auth'     => (getenv('MEDIAWIKI_SMTP_AUTH') == '1'), // Should we use SMTP authentication (true or false)
+        'username' => getenv('MEDIAWIKI_SMTP_USERNAME'), // Username to use for SMTP authentication (if being used)
+        'password' => getenv('MEDIAWIKI_SMTP_PASSWORD') // Password to use for SMTP authentication (if being used)
     );
 }
 
