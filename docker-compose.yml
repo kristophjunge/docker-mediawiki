@@ -4,12 +4,10 @@ services:
     build: .
     environment:
       MEDIAWIKI_HTTPS: 1
-      MEDIAWIKI_SMTP: 1
-      MEDIAWIKI_SMTP_SSL_VERIFY_PEER: 0
-      MEDIAWIKI_SERVER: https://localhost:8080
+      MEDIAWIKI_SERVER: https://localhost
       MEDIAWIKI_SITENAME: MyWiki
-      MEDIAWIKI_LANGUAGE_CODE: de
-      MEDIAWIKI_SECRET_KEY: ${SECRET_KEY}
+      MEDIAWIKI_LANGUAGE_CODE: en
+      MEDIAWIKI_SECRET_KEY: mysecret
       #MEDIAWIKI_META_NAMESPACE: MyNamespace
       MEDIAWIKI_DB_TYPE: mysql
       MEDIAWIKI_DB_HOST: db
@@ -18,21 +16,23 @@ services:
       MEDIAWIKI_DB_USER: wikiuser
       #MEDIAWIKI_DB_PREFIX: wiki_
       MEDIAWIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=binary
-      MEDIAWIKI_DB_PASSWORD: ${DB_PASSWORD}
+      MEDIAWIKI_DB_PASSWORD: mysecret
       MEDIAWIKI_ENABLE_UPLOADS: 1
       MEDIAWIKI_DEFAULT_SKIN: vector
-      MEDIAWIKI_SMTP_HOST: ${SMTP_HOST}
-      MEDIAWIKI_SMTP_IDHOST: ${SMTP_IDHOST}
-      MEDIAWIKI_SMTP_PORT: 587
-      MEDIAWIKI_SMTP_AUTH: 1
-      MEDIAWIKI_SMTP_USERNAME: ${SMTP_USERNAME}
-      MEDIAWIKI_SMTP_PASSWORD: ${SMTP_PASSWORD}
-      MEDIAWIKI_EMERGENCY_CONTACT: ${EMERGENCY_CONTACT}
-      MEDIAWIKI_PASSWORD_SENDER: ${PASSWORD_SENDER}
+      #MEDIAWIKI_SMTP: 1
+      #MEDIAWIKI_SMTP_SSL_VERIFY_PEER: 0
+      #MEDIAWIKI_SMTP_HOST: smtp.example.com
+      #MEDIAWIKI_SMTP_IDHOST: example.com
+      #MEDIAWIKI_SMTP_PORT: 587
+      #MEDIAWIKI_SMTP_AUTH: 1
+      #MEDIAWIKI_SMTP_USERNAME: mail@example.com
+      #MEDIAWIKI_SMTP_PASSWORD: mysecret
+      #MEDIAWIKI_EMERGENCY_CONTACT: contact@example.com
+      #MEDIAWIKI_PASSWORD_SENDER: wiki@example.com
       MEDIAWIKI_DEBUG: 0
     ports:
-    - "8079:80"
-    - "8080:443"
+    - "80:80"
+    - "443:443"
     links:
     - db:db
     volumes:
@@ -46,10 +46,7 @@ services:
     environment:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: mysecret
       MYSQL_RANDOM_ROOT_PASSWORD: 1
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Debug
-    ports:
-    - "3309:3306" # Debug
     volumes:
     - /srv/mediawiki/mysql:/var/lib/mysql
