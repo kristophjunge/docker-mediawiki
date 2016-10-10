@@ -7,9 +7,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
     exit;
 }
 
-if (getenv('MEDIAWIKI_SITENAME') == '') {
-    throw new Exception('Missing environment variable MEDIAWIKI_SITENAME');
-} else {
+if (getenv('MEDIAWIKI_SITENAME') != '') {
     $wgSitename = getenv('MEDIAWIKI_SITENAME');
 }
 
@@ -107,9 +105,7 @@ if (getenv('MEDIAWIKI_LANGUAGE_CODE') != '') {
     $wgLanguageCode = getenv('MEDIAWIKI_LANGUAGE_CODE');
 }
 
-if (getenv('MEDIAWIKI_SECRET_KEY') == '') {
-    throw new Exception('Missing environment variable MEDIAWIKI_SECRET_KEY');
-} else {
+if (getenv('MEDIAWIKI_SECRET_KEY') != '') {
     $wgSecretKey = getenv('MEDIAWIKI_SECRET_KEY');
 }
 
