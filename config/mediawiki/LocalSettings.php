@@ -45,7 +45,7 @@ $wgEnotifUserTalk = false;
 $wgEnotifWatchlist = false;
 $wgEmailAuthentication = true;
 
-$wgDBtype = "mysql";
+$wgDBtype = "sqlite";
 if (getenv('MEDIAWIKI_DB_TYPE') != '') {
     $wgDBtype = getenv('MEDIAWIKI_DB_TYPE');
 }
@@ -80,6 +80,9 @@ if (getenv('MEDIAWIKI_DB_TABLE_OPTIONS') != '') {
 }
 
 $wgDBmysql5 = false;
+
+# SQLite specific settings
+$wgSQLiteDataDir = '/data';
 
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
