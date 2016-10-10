@@ -169,12 +169,12 @@ environment:
   MEDIAWIKI_DEFAULT_SKIN: vector
 ```
 
-These 4 common skins are packaged with the container:
+The default skins are packaged with the container:
 
-* CologneBlue
-* Modern
-* MonoBook
-* Vector
+* cologneblue
+* modern
+* monobook
+* vector
 
 You can add more skins by mounting them.
 

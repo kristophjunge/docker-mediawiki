@@ -101,30 +101,6 @@ ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALED
 RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
 
-# CologneBlue skin
-ARG SKIN_COLOGNEBLUE_VERSION=REL1_27-8932b44
-ADD https://extdist.wmflabs.org/dist/skins/CologneBlue-$SKIN_COLOGNEBLUE_VERSION.tar.gz /tmp/skin-cologneblue.tar.gz
-RUN tar -xzf /tmp/skin-cologneblue.tar.gz -C /var/www/mediawiki/skins && \
-    rm /tmp/skin-cologneblue.tar.gz
-
-# Modern skin
-ARG SKIN_MODERN_VERSION=REL1_27-db1cc18
-ADD https://extdist.wmflabs.org/dist/skins/Modern-$SKIN_MODERN_VERSION.tar.gz /tmp/skin-modern.tar.gz
-RUN tar -xzf /tmp/skin-modern.tar.gz -C /var/www/mediawiki/skins && \
-    rm /tmp/skin-modern.tar.gz
-
-# MonoBook skin
-ARG SKIN_MONOBOOK_VERSION=REL1_27-f29c848
-ADD https://extdist.wmflabs.org/dist/skins/MonoBook-$SKIN_MONOBOOK_VERSION.tar.gz /tmp/skin-monobook.tar.gz
-RUN tar -xzf /tmp/skin-monobook.tar.gz -C /var/www/mediawiki/skins && \
-    rm /tmp/skin-monobook.tar.gz
-
-# Vector skin
-ARG SKIN_VECTOR_VERSION=REL1_27-d11a80a
-ADD https://extdist.wmflabs.org/dist/skins/Vector-$SKIN_VECTOR_VERSION.tar.gz /tmp/skin-vector.tar.gz
-RUN tar -xzf /tmp/skin-vector.tar.gz -C /var/www/mediawiki/skins && \
-    rm /tmp/skin-vector.tar.gz
-
 # Set work dir
 WORKDIR /var/www/mediawiki
 
