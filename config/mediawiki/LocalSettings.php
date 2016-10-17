@@ -43,23 +43,22 @@ $wgEnotifUserTalk = false;
 $wgEnotifWatchlist = false;
 $wgEmailAuthentication = true;
 
-$wgDBtype = "sqlite";
 if (getenv('MEDIAWIKI_DB_TYPE') != '') {
     $wgDBtype = getenv('MEDIAWIKI_DB_TYPE');
 }
 
-$hostname = ((getenv('MEDIAWIKI_DB_HOST') != '') ? getenv('MEDIAWIKI_DB_HOST') : '127.0.0.1');
-$port = ((getenv('MEDIAWIKI_DB_PORT') != '') ? getenv('MEDIAWIKI_DB_PORT') : '3306');
-$wgDBserver = $hostname.':'.$port;
+if (getenv('MEDIAWIKI_DB_HOST') != '' || getenv('MEDIAWIKI_DB_PORT') != '') {
+    $hostname = ((getenv('MEDIAWIKI_DB_HOST') != '') ? getenv('MEDIAWIKI_DB_HOST') : '127.0.0.1');
+    $port = ((getenv('MEDIAWIKI_DB_PORT') != '') ? getenv('MEDIAWIKI_DB_PORT') : '3306');
+    $wgDBserver = $hostname.':'.$port;
+}
 
 unset($hostname, $port);
 
-$wgDBname = "wikidb";
 if (getenv('MEDIAWIKI_DB_NAME') != '') {
     $wgDBname = getenv('MEDIAWIKI_DB_NAME');
 }
 
-$wgDBuser = "wikiuser";
 if (getenv('MEDIAWIKI_DB_USER') != '') {
     $wgDBuser = getenv('MEDIAWIKI_DB_USER');
 }
