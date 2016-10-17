@@ -167,15 +167,17 @@ if (getenv('MEDIAWIKI_SMTP') == '1') {
 }
 
 # VisualEditor
-wfLoadExtension( 'VisualEditor' );
-$wgDefaultUserOptions['visualeditor-enable'] = 1;
-$wgVirtualRestConfig['modules']['parsoid'] = array(
-  'url' => 'http://localhost:8142',
-  'domain' => 'localhost',
-  'prefix' => ''
-);
-$wgSessionsInObjectCache = true;
-$wgVirtualRestConfig['modules']['parsoid']['forwardCookies'] = true;
+if (getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '' || getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '1') {
+    wfLoadExtension('VisualEditor');
+    $wgDefaultUserOptions['visualeditor-enable'] = 1;
+    $wgVirtualRestConfig['modules']['parsoid'] = array(
+        'url' => 'http://localhost:8142',
+        'domain' => 'localhost',
+        'prefix' => ''
+    );
+    $wgSessionsInObjectCache = true;
+    $wgVirtualRestConfig['modules']['parsoid']['forwardCookies'] = true;
+}
 
 # Load extra settings
 require 'ExtraLocalSettings.php';
