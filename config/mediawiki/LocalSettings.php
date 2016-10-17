@@ -81,6 +81,19 @@ $wgDBmysql5 = false;
 # SQLite specific settings
 $wgSQLiteDataDir = '/data';
 
+if (getenv('MEDIAWIKI_DB_TYPE') == 'sqlite') {
+    $wgObjectCaches[CACHE_DB] = [
+        'class' => 'SqlBagOStuff',
+        'loggroup' => 'SQLBagOStuff',
+        'server' => [
+            'type' => 'sqlite',
+            'dbname' => 'wikicache',
+            'tablePrefix' => '',
+            'flags' => 0
+        ]
+    ];
+}
+
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
 
