@@ -4,7 +4,6 @@ services:
     #build: ./../../../ # Uncomment to build
     image: kristophjunge/mediawiki
     environment:
-      MEDIAWIKI_HTTPS: 1
       MEDIAWIKI_SERVER: https://localhost
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
@@ -15,12 +14,9 @@ services:
       MEDIAWIKI_ENABLE_VISUAL_EDITOR: 0
       MEDIAWIKI_DEFAULT_SKIN: vector
     ports:
-    - "80:80"
-    - "443:443"
+    - "8080:80"
     volumes:
     - /srv/mediawiki/images:/var/www/mediawiki/images
     - /srv/mediawiki/data:/data
-    - ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
-    - ./../../../testdata/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro
-    - ./../../../testdata/ssl/private.key:/etc/ssl/crt/private.key:ro
-    - ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+    #- ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
+    #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
