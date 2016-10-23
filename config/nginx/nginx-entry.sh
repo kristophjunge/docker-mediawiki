@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Fix permissions of images folder
+chown -R 999:999 /var/www/mediawiki/images
+
 MEDIAWIKI_HTTPS=${MEDIAWIKI_HTTPS:=0}
 MEDIAWIKI_SMTP_SSL_VERIFY_PEER=${MEDIAWIKI_SMTP_SSL_VERIFY_PEER:=0}
 
