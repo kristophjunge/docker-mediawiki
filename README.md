@@ -17,22 +17,118 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 - Intl for Unicode normalization
 - APC as in memory PHP object cache
 - Configured with [Short URLs](https://www.mediawiki.org/wiki/Manual:Short_URL)
-- SMTP E-Mail with workaround for self-signed certificates
-- Packed with 4 common skins (CologneBlue, Modern, MonoBook, Vector)
 
 
 ## Usage
 
+### With MySQL
+
+See Docker Compose [example](https://github.com/kristophjunge/docker-mediawiki/blob/master/example/docker-compose/mysql/docker-compose.yml).
+
+Start a MySQL container.
+
 ```
-docker run --name some-mediawiki \
-    --link some-mysql:mysql \
-    -v /local/data/path:/data:rw \
-    -d kristophjunge/mediawiki
+docker run --name=some-mysql \
+-e MYSQL_DATABASE=wikidb \
+-e MYSQL_USER=wikiuser \
+-e MYSQL_PASSWORD=mysecret \
+-e MYSQL_RANDOM_ROOT_PASSWORD=1 \
+-v /srv/mediawiki/mysql:/var/lib/mysql \
+-d mysql:5.7
 ```
+
+Start MediaWiki container.
+
+```
+docker run --name some-wiki \
+--link some-mysql:mysql \
+-p 8080:80 \
+-e MEDIAWIKI_SERVER=http://localhost:8080 \
+-e MEDIAWIKI_SITENAME=MyWiki \
+-e MEDIAWIKI_LANGUAGE_CODE=en \
+-e MEDIAWIKI_DB_TYPE=mysql \
+-e MEDIAWIKI_DB_HOST=some-mysql \
+-e MEDIAWIKI_DB_PORT=3306 \
+-e MEDIAWIKI_DB_NAME=wikidb \
+-e MEDIAWIKI_DB_USER=wikiuser \
+-e MEDIAWIKI_DB_PASSWORD=mysecret \
+-e MEDIAWIKI_ENABLE_UPLOADS=1 \
+-v /srv/mediawiki/images:/var/www/mediawiki/images \
+-d kristophjunge/mediawiki
+```
+
+Create a new database with the install script. Insert username and password for your admin account.
+
+```
+$ docker exec -i -t some-wiki /script/install.sh <username> <password>
+```
+
+If you are using an existing database run the update script instead.
+
+```
+$ docker exec -i -t some-wiki /script/update.sh
+```
+
+Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
+
+```
+-e MEDIAWIKI_SECRET_KEY=secretkey
+```
+
+If you are using an existing database find the variable `$wgDBTableOptions` in your previous `LocalSettings.php` file and put it into an environment variable.
+
+```
+-e MEDIAWIKI_DB_TABLE_OPTIONS=ENGINE=InnoDB, DEFAULT CHARSET=binary
+```
+
+You should be able to browse your wiki at [http://localhost:8080](http://localhost:8080).
+
+
+### With SQLite
+
+See Docker Compose [example](https://github.com/kristophjunge/docker-mediawiki/blob/master/example/docker-compose/sqlite/docker-compose.yml).
+
+**Warning**: There is a known issue that VisualEditor currently is not work when using SQLite.
+
+Start MediaWiki container.
+
+```
+docker run --name=some-wiki \
+-p 8080:80 \
+-e MEDIAWIKI_SERVER=http://localhost:8080 \
+-e MEDIAWIKI_SITENAME=MyWiki \
+-e MEDIAWIKI_LANGUAGE_CODE=en
+-e MEDIAWIKI_DB_TYPE=sqlite \
+-e MEDIAWIKI_DB_NAME=wikidb \
+-e MEDIAWIKI_ENABLE_UPLOADS=1 \
+-e MEDIAWIKI_ENABLE_VISUAL_EDITOR=0 \
+-v /srv/mediawiki/images:/var/www/mediawiki/images \
+-v /srv/mediawiki/data:/data \
+-d kristophjunge/mediawiki
+```
+
+Create a new database with the install script. Insert username and password for your admin account.
+
+```
+$ docker exec -i -t some-wiki /script/install.sh <username> <password>
+```
+
+If you are using an existing database run the update script instead.
+
+```
+$ docker exec -i -t some-wiki /script/update.sh
+```
+
+Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
+
+```
+-e MEDIAWIKI_SECRET_KEY=secretkey
+```
+
+You should be able to browse your wiki at [http://localhost:8080](http://localhost:8080).
+
 
 ## Configuration
-
-All configuration examples are given in docker-compose YAML version 2 format.
 
 
 ### General
@@ -43,67 +139,28 @@ Set the mandatory environment variables:
 * Set `MEDIAWIKI_LANGUAGE_CODE` to a language code of this [list](https://doc.wikimedia.org/mediawiki-core/master/php/Names_8php_source.html).
 
 ```
-environment:
-  MEDIAWIKI_SERVER: http://wiki.example.com
-  MEDIAWIKI_SITENAME: MyWiki
-  MEDIAWIKI_LANGUAGE_CODE: en
-```
-
-Open port for HTTP communication.
-
-```
-ports:
-- "80:80"
+-e MEDIAWIKI_SERVER=http://wiki.example.com \
+-e MEDIAWIKI_SITENAME=MyWiki \
+-e MEDIAWIKI_LANGUAGE_CODE=en
 ```
 
 
 ### HTTPS
 
-To enable HTTPS set the environment variable `MEDIAWIKI_HTTPS` to 1. With HTTPS the server variable `MEDIAWIKI_SERVER` should start with `https://`.
-
-```
-environment:
-  MEDIAWIKI_HTTPS: 1
-  MEDIAWIKI_SERVER: https://wiki.example.com
-```
-
-Open port for HTTPS communication.
-
-```
-ports:
-- "443:443"
-```
-
+To enable HTTPS set the environment variable `MEDIAWIKI_HTTPS` to 1.
+When using HTTPS the value of `MEDIAWIKI_SERVER` should start with `https://`.
+Don't forget to open a port for HTTPS communication.
 Mount your SSL certificate and private key into the container.
 
 ```
-volumes:
-- /srv/mediawiki/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro
-- /srv/mediawiki/ssl/private.key:/etc/ssl/crt/private.key:ro
+-p 443:443 \
+-e MEDIAWIKI_HTTPS=1 \
+-e MEDIAWIKI_SERVER=https://localhost \
+-v /srv/mediawiki/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro \
+-v /srv/mediawiki/ssl/private.key:/etc/ssl/crt/private.key:ro
 ```
-
 
 When `MEDIAWIKI_HTTPS` is set to 1 all requests to HTTP URLs will be redirected to HTTPS to enforce a secure connection.
-
-
-### Database
-
-The container does not include a database server. You have to configure an external database.
-
-
-#### MySQL
-
-Setup the MySQL configuration environment variables.
-
-```
-environment:
-  MEDIAWIKI_DB_TYPE: mysql
-  MEDIAWIKI_DB_HOST: db
-  MEDIAWIKI_DB_PORT: 3306
-  MEDIAWIKI_DB_NAME: wikidb
-  MEDIAWIKI_DB_USER: wikiuser
-  MEDIAWIKI_DB_PASSWORD: mysecret
-```
 
 
 ### Uploads
@@ -111,22 +168,13 @@ environment:
 To enable file uploads set the environment variable `MEDIAWIKI_ENABLE_UPLOADS` to 1.
 
 ```
-environment:
-  MEDIAWIKI_ENABLE_UPLOADS: 1
+-e MEDIAWIKI_ENABLE_UPLOADS=1
 ```
 
-Create a folder on your host system and set correct owner.
+Mount a writable volume to the images folder.
 
 ```
-$ mkdir -p /srv/mediawiki/images
-$ chown -R 999:999 /srv/mediawiki/images
-```
-
-Mount that folder as writable volume.
-
-```
-volumes:
-- /srv/mediawiki/images:/var/www/mediawiki/images
+-v /srv/mediawiki/images:/var/www/mediawiki/images
 ```
 
 
@@ -134,16 +182,14 @@ volumes:
 
 SMTP E-Mail can be enabled by setting `MEDIAWIKI_SMTP` to 1. TLS auth will be used by default.
 
-
 ```
-environment:
-  MEDIAWIKI_SMTP: 1
-  MEDIAWIKI_SMTP_HOST: smtp.example.com
-  MEDIAWIKI_SMTP_IDHOST: example.com
-  MEDIAWIKI_SMTP_PORT: 587
-  MEDIAWIKI_SMTP_AUTH: 1
-  MEDIAWIKI_SMTP_USERNAME: mail@example.com
-  MEDIAWIKI_SMTP_PASSWORD: secret
+-e MEDIAWIKI_SMTP=1
+-e MEDIAWIKI_SMTP_HOST=smtp.example.com
+-e MEDIAWIKI_SMTP_IDHOST=example.com
+-e MEDIAWIKI_SMTP_PORT=587
+-e MEDIAWIKI_SMTP_AUTH=1
+-e MEDIAWIKI_SMTP_USERNAME=mail@example.com
+-e MEDIAWIKI_SMTP_PASSWORD=secret
 ```
 
 Using a self-signed certificate will not work because of failing peer verification.
@@ -155,8 +201,7 @@ If you know the security implications you can disable peer verification by setti
 You can setup your own logo by mounting a PNG file.
 
 ```
-volumes:
-- ./srv/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
+-v ./srv/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
 ```
 
 
@@ -165,8 +210,7 @@ volumes:
 You can change the default skin by setting the environment variable `MEDIAWIKI_DEFAULT_SKIN`.
 
 ```
-environment:
-  MEDIAWIKI_DEFAULT_SKIN: vector
+-e MEDIAWIKI_DEFAULT_SKIN=vector
 ```
 
 The default skins are packaged with the container:
@@ -179,8 +223,7 @@ The default skins are packaged with the container:
 You can add more skins by mounting them.
 
 ```
-volumes:
-- ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
+-v ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
 ```
 
 
@@ -189,8 +232,7 @@ volumes:
 You can add more extensions by mounting them.
 
 ```
-volumes:
-- ./srv/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
+-v ./srv/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
 ```
 
 
@@ -199,14 +241,13 @@ volumes:
 You can add own PHP configuration values by mounting an additional configuration file that is loaded at the end of the generic configuration file.
 
 ```
-volumes:
-- /srv/mediawiki/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+-v /srv/mediawiki/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
 ```
 
 A good starting point is to copy the file that's inside the container. You can display its content with the following command.
 
 ```
-$ docker exec -i -t dockermediawiki_wiki_1 cat /var/www/mediawiki/ExtraLocalSettings.php
+$ docker exec -i -t some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
 ```
 
 
@@ -217,62 +258,8 @@ Beside the docker like configuration with environment variables you still can us
 However this will make all environment variables unusable except `MEDIAWIKI_HTTPS` and `MEDIAWIKI_SMTP_SSL_VERIFY_PEER`.
 
 ```
-volumes:
-- /srv/mediawiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php:ro
+-v /srv/mediawiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php:ro
 ```
-
-
-## Installation
-
-If you are upgrading from a previous installation watch the section below "Upgrade from an existing installation".
-
-Start the container and run the following script which is a wrapper for the MediaWiki installer.
-Insert username and password for your admin account.
-
-```
-$ docker exec -i -t dockermediawiki_wiki_1 /script/install.sh <username> <password>
-```
-
-Copy the secret key that the script dumps and put it into an environment variable.
-
-```
-environment:
-  MEDIAWIKI_SECRET_KEY: secretkey
-```
-
-You should be able to browse your wiki at this point.
-
-
-## Upgrade from an existing installation
-
-Copy the contents of the `images` folder of your old media wiki installation into the `images` mount source.
-
-Find the secret key variable `$wgSecretKey` in the `LocalSettings.php` file of your old installation and place its value into an environment variable.
-
-```
-environment:
-  MEDIAWIKI_SECRET_KEY: secretkey
-```
-
-If you are using MySQL find the variable `$wgDBTableOptions` in the `LocalSettings.php` file of your old installation and place its value into an environment variable.
-
-```
-environment:
-  MEDIAWIKI_DB_TABLE_OPTIONS: ENGINE=InnoDB, DEFAULT CHARSET=binary
-```
-
-Start the container and run the following script which is a wrapper for the MediaWiki updater.
-
-```
-$ docker exec -i -t dockermediawiki_wiki_1 /script/update.sh
-```
-
-You should be able to browse your wiki at this point.
-
-
-## Full configuration example
-
-A full docker-compose configuration with MySQL can be found [here](https://github.com/kristophjunge/docker-mediawiki/blob/master/docker-compose.yml).
 
 
 ## Configuration reference
