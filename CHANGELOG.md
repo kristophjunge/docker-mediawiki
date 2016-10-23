@@ -1,8 +1,8 @@
-## 0.1.0 (2016-10-05)
+## 2016-10-05
 
 * Initial version
 
-## 0.2.0 (2016-10-06)
+## 2016-10-23
 
 * Changed environment variable prefix `WIKI_` to `MEDIAWIKI_`.
 * Removed all custom configuration defaults. All MediaWiki default values will be used.
