@@ -312,6 +312,19 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_PASSWORD_SENDER | $wgPasswordSender | E-Mail sender for password forgot mails |
 
 
+## Extending this image
+
+If you need to create your own Dockerfile you can extend this image.
+
+```
+FROM kristophjunge/mediawiki:latest
+
+COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
+
+# ...
+```
+
+
 ## Security
 
 * Nginx and PHP-FPM worker processes run under the `www-data` user with UID 999 and GID 999.
