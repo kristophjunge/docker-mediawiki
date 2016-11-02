@@ -47,6 +47,6 @@ services:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Debug
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
     - /srv/mediawiki/mysql:/var/lib/mysql
