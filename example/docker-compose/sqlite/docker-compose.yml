@@ -4,7 +4,7 @@ services:
     #build: ./../../../ # Uncomment to build
     image: kristophjunge/mediawiki
     environment:
-      MEDIAWIKI_SERVER: https://localhost
+      MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: mysecret
