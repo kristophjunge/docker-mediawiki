@@ -1,3 +1,7 @@
+## 2016-11-06 1.28.0-1
+
+* Updated to MediaWiki 1.28.0
+
 ## 2016-11-06 1.27.1-3
 
 * Moved images mount point to /images
