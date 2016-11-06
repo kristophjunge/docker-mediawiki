@@ -7,6 +7,18 @@ if ( !defined( 'MEDIAWIKI' ) ) {
     exit;
 }
 
+$wgEnotifUserTalk = false;
+$wgEnotifWatchlist = false;
+$wgEmailAuthentication = true;
+
+$wgUseInstantCommons = false;
+
+$wgAuthenticationTokenVersion = "1";
+
+$wgGroupPermissions['*']['createaccount'] = false;
+$wgGroupPermissions['*']['edit'] = false;
+$wgGroupPermissions['*']['read'] = false;
+
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
 ## License and Creative Commons licenses are supported so far.

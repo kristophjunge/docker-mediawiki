@@ -39,10 +39,6 @@ if (getenv('MEDIAWIKI_PASSWORD_SENDER') != '') {
     $wgPasswordSender = getenv('MEDIAWIKI_PASSWORD_SENDER');
 }
 
-$wgEnotifUserTalk = false;
-$wgEnotifWatchlist = false;
-$wgEmailAuthentication = true;
-
 if (getenv('MEDIAWIKI_DB_TYPE') != '') {
     $wgDBtype = getenv('MEDIAWIKI_DB_TYPE');
 }
@@ -110,7 +106,6 @@ if (getenv('MEDIAWIKI_FILE_EXTENSIONS') != '') {
 
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
-$wgUseInstantCommons = false;
 $wgShellLocale = "C.UTF-8";
 
 if (getenv('MEDIAWIKI_LANGUAGE_CODE') != '') {
@@ -125,13 +120,7 @@ if (getenv('MEDIAWIKI_UPGRADE_KEY') != '') {
     $wgUpgradeKey = getenv('MEDIAWIKI_UPGRADE_KEY');
 }
 
-$wgAuthenticationTokenVersion = "1";
-
 $wgDiff3 = "/usr/bin/diff3";
-
-$wgGroupPermissions['*']['createaccount'] = false;
-$wgGroupPermissions['*']['edit'] = false;
-$wgGroupPermissions['*']['read'] = false;
 
 $wgDefaultSkin = "vector";
 if (getenv('MEDIAWIKI_DEFAULT_SKIN') != '') {
