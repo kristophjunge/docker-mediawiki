@@ -1,7 +1,9 @@
+# Do not forget to create a new database on your first run:
+# $ docker exec -i -t mysql_wiki_1 /script/install.sh <username> <password>
 version: '2'
 services:
   wiki:
-    #build: ./../../../ # Uncomment to build
+    #build: ./../../../ # Uncomment to build from source
     image: kristophjunge/mediawiki
     environment:
       MEDIAWIKI_SERVER: http://localhost:8080
