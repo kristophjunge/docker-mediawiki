@@ -299,6 +299,7 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_DB_PREFIX | $wgDBprefix | Database table name prefix |
 | MEDIAWIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |
 | MEDIAWIKI_ENABLE_UPLOADS | $wgEnableUploads | Enable file uploads, Default 0 |
+| MEDIAWIKI_MAX_UPLOAD SIZE | $wgMaxUploadSize | Max file upload size, Default 100M |
 | MEDIAWIKI_ENABLE_VISUAL_EDITOR | - | Enable the VisualEditor plugin, Default 1 |
 | MEDIAWIKI_FILE_EXTENSIONS | $wgFileExtensions | Allowed file extensions, comma separated |
 | MEDIAWIKI_DEFAULT_SKIN | $wgDefaultSkin | Default skin, Default "vector" |

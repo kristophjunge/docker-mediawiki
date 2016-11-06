@@ -93,6 +93,35 @@ if (getenv('MEDIAWIKI_DB_TYPE') == 'sqlite') {
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
 
+#$wgUploadPath = '/images';
+$wgUploadSizeWarning = false;
+
+if (getenv('MEDIAWIKI_MAX_UPLOAD_SIZE') != '') {
+    // Since MediaWiki's config takes upload size in bytes and PHP in 100M format, lets use PHPs format and convert that here.
+    $maxUploadSize = getenv('MEDIAWIKI_MAX_UPLOAD_SIZE');
+    if (strlen($maxUploadSize) >= 2) {
+        $maxUploadSizeUnit = substr($maxUploadSize, -1, 1);
+        $maxUploadSizeValue = (integer)substr($maxUploadSize, 0, -1);
+        switch (strtoupper($maxUploadSizeUnit)) {
+            case 'G':
+                $maxUploadSizeFactor = 1024 * 1024 * 1024;
+                break;
+            case 'M':
+                $maxUploadSizeFactor = 1024 * 1024;
+                break;
+            case 'K':
+                $maxUploadSizeFactor = 1024;
+                break;
+            case 'B':
+            default:
+                $maxUploadSizeFactor = 0;
+                break;
+        }
+        $wgMaxUploadSize = $maxUploadSizeValue * $maxUploadSizeFactor;
+        unset($maxUploadSizeUnit, $maxUploadSizeValue, $maxUploadSizeFactor);
+    }
+}
+
 $wgEnableUploads = false;
 if (getenv('MEDIAWIKI_ENABLE_UPLOADS') == '1') {
     $wgEnableUploads = true;
