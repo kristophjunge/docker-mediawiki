@@ -336,5 +336,5 @@ COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
 
 ## Known issues
 
-* VisualEditor is currently not working with SQLite (Error: 5 database is locked). However the default editor is working. You can use MEDIAWIKI_ENABLE_VISUAL_EDITOR to disable VisualEditor.
+* VisualEditor is currently not working with SQLite (Error: 5 database is locked). However the default editor is working. You can use `MEDIAWIKI_ENABLE_VISUAL_EDITOR` to disable VisualEditor.
 * Sessions are stored in memory via APC and will be lost after container stop.
