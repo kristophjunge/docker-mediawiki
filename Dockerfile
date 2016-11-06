@@ -85,8 +85,8 @@ COPY config/parsoid/localsettings.js /usr/lib/parsoid/src/localsettings.js
 #COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
 
 # MediaWiki
-ARG MEDIAWIKI_VERSION_MAJOR=1.27
-ARG MEDIAWIKI_VERSION=1.27.1
+ARG MEDIAWIKI_VERSION_MAJOR=1.28
+ARG MEDIAWIKI_VERSION=1.28.0-rc.0
 ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
 RUN mkdir -p /var/www/mediawiki /data /images && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
@@ -98,7 +98,7 @@ RUN mkdir -p /var/www/mediawiki /data /images && \
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
-ARG EXTENSION_VISUALEDITOR_VERSION=REL1_27-9da5996
+ARG EXTENSION_VISUALEDITOR_VERSION=master-b39fec0
 ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz /tmp/extension-visualeditor.tar.gz
 RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
