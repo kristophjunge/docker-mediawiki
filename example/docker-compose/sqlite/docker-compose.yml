@@ -18,7 +18,7 @@ services:
     ports:
     - "8080:80"
     volumes:
-    - /srv/mediawiki/images:/var/www/mediawiki/images
+    - /srv/mediawiki/images:/images
     - /srv/mediawiki/data:/data
     #- ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro

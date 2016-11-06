@@ -25,7 +25,7 @@ services:
     links:
     - db:db
     volumes:
-    - /srv/mediawiki/images:/var/www/mediawiki/images
+    - /srv/mediawiki/images:/images
     #- ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
   db:

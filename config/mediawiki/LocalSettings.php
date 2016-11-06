@@ -93,7 +93,8 @@ if (getenv('MEDIAWIKI_DB_TYPE') == 'sqlite') {
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
 
-#$wgUploadPath = '/images';
+$wgUploadPath = '/images';
+$wgUploadDirectory = '/images';
 $wgUploadSizeWarning = false;
 
 if (getenv('MEDIAWIKI_MAX_UPLOAD_SIZE') != '') {

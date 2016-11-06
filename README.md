@@ -59,7 +59,7 @@ docker run --name some-wiki \
 -e MEDIAWIKI_DB_USER=wikiuser \
 -e MEDIAWIKI_DB_PASSWORD=mysecret \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
--v /srv/mediawiki/images:/var/www/mediawiki/images \
+-v /srv/mediawiki/images:/images \
 -d kristophjunge/mediawiki
 ```
 
@@ -108,7 +108,7 @@ docker run --name=some-wiki \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
 -e MEDIAWIKI_ENABLE_VISUAL_EDITOR=0 \
--v /srv/mediawiki/images:/var/www/mediawiki/images \
+-v /srv/mediawiki/images:/images \
 -v /srv/mediawiki/data:/data \
 -d kristophjunge/mediawiki
 ```
@@ -180,7 +180,7 @@ To enable file uploads set the environment variable `MEDIAWIKI_ENABLE_UPLOADS` t
 Mount a writable volume to the images folder.
 
 ```
--v /srv/mediawiki/images:/var/www/mediawiki/images
+-v /srv/mediawiki/images:/images
 ```
 
 

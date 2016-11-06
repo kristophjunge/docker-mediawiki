@@ -88,11 +88,13 @@ COPY config/parsoid/localsettings.js /usr/lib/parsoid/src/localsettings.js
 ARG MEDIAWIKI_VERSION_MAJOR=1.27
 ARG MEDIAWIKI_VERSION=1.27.1
 ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
-RUN mkdir -p /var/www/mediawiki /data && \
+RUN mkdir -p /var/www/mediawiki /data /images && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
     mv /tmp/mediawiki-$MEDIAWIKI_VERSION/* /var/www/mediawiki && \
     rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION/ && \
-    chown -R www-data:www-data /var/www/mediawiki/images /data
+    chown -R www-data:www-data /data /images && \
+    rm -rf /var/www/mediawiki/images && \
+    ln -s /images /var/www/mediawiki/images
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
@@ -109,6 +111,6 @@ RUN mkdir /script
 COPY script/* /script/
 
 # General setup
-VOLUME ["/var/cache/nginx", "/var/www/mediawiki/images", "/data"]
+VOLUME ["/var/cache/nginx", "/data", "/images"]
 EXPOSE 80 443
 CMD ["/script/docker-entry.sh"]

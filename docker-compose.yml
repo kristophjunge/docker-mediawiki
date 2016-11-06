@@ -39,7 +39,7 @@ services:
     links:
     - db:db
     volumes:
-    - /srv/mediawiki/images:/var/www/mediawiki/images
+    - /srv/mediawiki/images:/images
     - ./testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     - ./testdata/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro
     - ./testdata/ssl/private.key:/etc/ssl/crt/private.key:ro
