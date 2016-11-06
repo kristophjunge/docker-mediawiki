@@ -111,4 +111,4 @@ COPY script/* /script/
 # General setup
 VOLUME ["/var/cache/nginx", "/var/www/mediawiki/images", "/data"]
 EXPOSE 80 443
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/script/docker-entry.sh"]
