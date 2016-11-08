@@ -104,7 +104,7 @@ docker run --name=some-wiki \
 -p 8080:80 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
--e MEDIAWIKI_LANGUAGE_CODE=en
+-e MEDIAWIKI_LANGUAGE_CODE=en \
 -e MEDIAWIKI_DB_TYPE=sqlite \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
