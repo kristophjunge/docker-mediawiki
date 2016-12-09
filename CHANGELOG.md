@@ -1,6 +1,7 @@
 ## 2016-12-09 1.28.0-2
 
 * Updated to MediaWiki 1.28.0 stable (rc.0 before)
+* Added missing environment variable (MEDIAWIKI_SMTP) forward to PHP-FPM config
 
 ## 2016-11-06 1.28.0-1
 
