@@ -1,3 +1,7 @@
+## 2016-12-09 1.28.0-2
+
+* Updated to MediaWiki 1.28.0 stable (rc.0 before)
+
 ## 2016-11-06 1.28.0-1
 
 * Updated to MediaWiki 1.28.0
