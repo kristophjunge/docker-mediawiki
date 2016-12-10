@@ -66,15 +66,16 @@ COPY config/supervisor/kill_supervisor.py /usr/bin/
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
     apt-get install -y nodejs --no-install-recommends
 
-# Parsoid from apt repo. Installs older version 0.5.1 working with old js config file
-RUN useradd parsoid --no-create-home --home-dir /usr/lib/parsoid/src --shell /usr/sbin/nologin
+# Parsoid
+RUN useradd parsoid --no-create-home --home-dir /usr/lib/parsoid --shell /usr/sbin/nologin
 RUN apt-key advanced --keyserver pgp.mit.edu --recv-keys 90E9F83F22250DD7 && \
     echo "deb https://releases.wikimedia.org/debian jessie-mediawiki main" > /etc/apt/sources.list.d/parsoid.list && \
     apt-get update && \
     apt-get -y install parsoid --no-install-recommends
-COPY config/parsoid/localsettings.js /usr/lib/parsoid/src/localsettings.js
+COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
+ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 
-# Parsoid from git repo. Installs version > 0.5.2 working with new yaml config file
+# Parsoid from git repo. Installs latest version
 #ARG PARSOID_GIT_BRANCH=master
 #RUN mkdir -p /usr/lib/parsoid/src
 #RUN useradd parsoid --no-create-home --home-dir /usr/lib/parsoid/src --shell /usr/sbin/nologin

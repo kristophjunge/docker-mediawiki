@@ -1,3 +1,7 @@
+## 2016-12-10 1.28.0-3
+
+* Updated Parsoid installation routine to match the latest version (0.6.1)
+
 ## 2016-12-09 1.28.0-2
 
 * Updated to MediaWiki 1.28.0 stable (rc.0 before)
