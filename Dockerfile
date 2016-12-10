@@ -99,7 +99,7 @@ RUN mkdir -p /var/www/mediawiki /data /images && \
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
-ARG EXTENSION_VISUALEDITOR_VERSION=master-b39fec0
+ARG EXTENSION_VISUALEDITOR_VERSION=REL1_28-93528b7
 ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz /tmp/extension-visualeditor.tar.gz
 RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
