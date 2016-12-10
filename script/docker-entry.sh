@@ -21,7 +21,7 @@ fi
 
 # Disable SSL peer verification in PEAR mail class to support self signed certs
 if [ ${MEDIAWIKI_SMTP_SSL_VERIFY_PEER} == 0 ]; then
-    sed -i "s/\$this->socket_options = \$socket_options;/\$this->socket_options = \$socket_options;\\n\$this->socket_options['ssl']['verify_peer'] = false;\\n\$this->socket_options['ssl']['verify_peer_name'] = false;/g" /usr/local/lib/php/Net/SMTP.php
+    sed -i "s/if (isset(\$params\['socket_options'\])) \$this->socket_options = \$params\['socket_options'\];/if (isset(\$params['socket_options'])) \$this->socket_options = \$params['socket_options'];\\n\$this->socket_options['ssl']['verify_peer'] = false;\\n\$this->socket_options['ssl']['verify_peer_name'] = false;/g" /usr/local/lib/php/Mail/smtp.php
 fi
 
 # Start supervisord

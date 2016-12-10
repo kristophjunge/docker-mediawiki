@@ -1,3 +1,7 @@
+## 2016-12-10 1.28.0-4
+
+* Updated logic for MEDIAWIKI_SMTP_SSL_VERIFY_PEER workaround since MediaWiki 1.28 now uses different PEAR mail code.
+
 ## 2016-12-10 1.28.0-3
 
 * Updated VisualEditor to the latest version (REL1_28-93528b7)
