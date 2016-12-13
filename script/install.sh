@@ -15,8 +15,8 @@ php maintenance/install.php Wiki $1 --pass=$2 \
  --dbserver=${MEDIAWIKI_DB_HOST} \
  --dbtype=${MEDIAWIKI_DB_TYPE} \
  --dbname=${MEDIAWIKI_DB_NAME} \
- --installdbuser=${MEDIAWIKI_DB_USER} \
- --installdbpass=${MEDIAWIKI_DB_PASSWORD} \
+ --dbuser=${MEDIAWIKI_DB_USER} \
+ --dbpass=${MEDIAWIKI_DB_PASSWORD} \
  --scriptpath=/
 
 # Fix SQLite data folder permissions
