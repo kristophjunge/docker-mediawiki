@@ -186,7 +186,10 @@ if (getenv('MEDIAWIKI_SMTP') == '1') {
 }
 
 # VisualEditor
-if (getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '' || getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '1') {
+if (getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '' // Deprecated
+|| getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '1' // Deprecated
+|| getenv('MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED') == ''
+|| getenv('MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED') == '1') {
     wfLoadExtension('VisualEditor');
     $wgDefaultUserOptions['visualeditor-enable'] = 1;
     $wgVirtualRestConfig['modules']['parsoid'] = array(
@@ -196,6 +199,15 @@ if (getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '' || getenv('MEDIAWIKI_ENABLE_V
     );
     $wgSessionsInObjectCache = true;
     $wgVirtualRestConfig['modules']['parsoid']['forwardCookies'] = true;
+}
+
+# User Merge
+if (getenv('MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED') == ''
+|| getenv('MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED') == '1') {
+    wfLoadExtension('UserMerge');
+    $wgGroupPermissions['bureaucrat']['usermerge'] = true;
+    $wgGroupPermissions['sysop']['usermerge'] = true;
+    $wgUserMergeProtectedGroups = array();
 }
 
 # Load extra settings

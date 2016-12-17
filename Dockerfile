@@ -104,6 +104,12 @@ ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALED
 RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
 
+# User merge and delete extension
+ARG EXTENSION_USERMERGE_VERSION=REL1_28-55971e5
+ADD https://extdist.wmflabs.org/dist/extensions/UserMerge-$EXTENSION_USERMERGE_VERSION.tar.gz /tmp/extension-usermerge.tar.gz
+RUN tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions && \
+    rm /tmp/extension-usermerge.tar.gz
+
 # Set work dir
 WORKDIR /var/www/mediawiki
 

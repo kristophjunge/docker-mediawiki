@@ -1,3 +1,8 @@
+## 2016-12-17 1.28.0-5
+
+* Introduced new naming convention for plugin related variables MEDIAWIKI_EXTENSION_*.
+* Added UserMerge plugin, configurable via MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED.
+
 ## 2016-12-10 1.28.0-4
 
 * Updated logic for MEDIAWIKI_SMTP_SSL_VERIFY_PEER workaround since MediaWiki 1.28 now uses different PEAR mail code.

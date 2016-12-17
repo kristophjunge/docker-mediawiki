@@ -19,6 +19,7 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
 - [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin
+- [UserMerge](https://www.mediawiki.org/wiki/Extension:UserMerge) plugin
 - [Parsoid](https://www.mediawiki.org/wiki/Parsoid) running on NodeJS v4.6.x LTS
 - Imagick for thumbnail generation
 - Intl for Unicode normalization
@@ -301,7 +302,8 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |
 | MEDIAWIKI_ENABLE_UPLOADS | $wgEnableUploads | Enable file uploads, Default 0 |
 | MEDIAWIKI_MAX_UPLOAD SIZE | $wgMaxUploadSize | Max file upload size, Default 100M |
-| MEDIAWIKI_ENABLE_VISUAL_EDITOR | - | Enable the VisualEditor plugin, Default 1 |
+| MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED | - | Enable the VisualEditor plugin, Default 1 |
+| MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED | - | Enable the UserMerge plugin, Default 1 |
 | MEDIAWIKI_FILE_EXTENSIONS | $wgFileExtensions | Allowed file extensions, comma separated |
 | MEDIAWIKI_DEFAULT_SKIN | $wgDefaultSkin | Default skin, Default "vector" |
 | MEDIAWIKI_SMTP_HOST | $wgSMTP | SMTP Host, like smtp.example.com |
