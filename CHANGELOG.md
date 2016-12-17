@@ -1,3 +1,7 @@
+## 2016-12-17 1.28.0-6
+
+* Added dbuser and dbpass arguments to install script.
+
 ## 2016-12-17 1.28.0-5
 
 * Set PHP base image version to 7.0 instead of 7 since used imagick version is not compatible with PHP 7.1.
