@@ -1,5 +1,6 @@
 ## 2016-12-17 1.28.0-5
 
+* Set PHP base image version to 7.0 instead of 7 since used imagick version is not compatible with PHP 7.1.
 * Introduced new naming convention for plugin related variables MEDIAWIKI_EXTENSION_*.
 * Added UserMerge plugin, configurable via MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED.
 

@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7.0-fpm
 MAINTAINER Kristoph Junge <kristoph.junge@gmail.com>
 
 # Change UID and GID of www-data user to match host privileges
