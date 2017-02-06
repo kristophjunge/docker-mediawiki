@@ -72,13 +72,13 @@ docker run --name some-wiki \
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -i -t some-wiki /script/install.sh <username> <password>
+$ docker exec -it some-wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -i -t some-wiki /script/update.sh
+$ docker exec -it some-wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -122,13 +122,13 @@ docker run --name=some-wiki \
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -i -t some-wiki /script/install.sh <username> <password>
+$ docker exec -it some-wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -i -t some-wiki /script/update.sh
+$ docker exec -it some-wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -259,7 +259,7 @@ You can add own PHP configuration values by mounting an additional configuration
 A good starting point is to copy the file that's inside the container. You can display its content with the following command.
 
 ```
-$ docker exec -i -t some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
+$ docker exec -it some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
 ```
 
 
