@@ -1,3 +1,7 @@
+## 2017-02-06 1.28.0-7
+
+* Changed default session storage to database instead of in-memory when using mysql.
+
 ## 2016-12-17 1.28.0-6
 
 * Added dbuser and dbpass arguments to install script.

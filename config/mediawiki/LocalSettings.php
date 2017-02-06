@@ -64,12 +64,17 @@ if (getenv('MEDIAWIKI_DB_PASSWORD') != '') {
 }
 
 # MySQL specific settings
-if (getenv('MEDIAWIKI_DB_PREFIX') != '') {
-    $wgDBprefix = getenv('MEDIAWIKI_DB_PREFIX');
-}
+if (getenv('MEDIAWIKI_DB_TYPE') == 'mysql') {
+    // Cache sessions in database
+    $wgSessionCacheType = CACHE_DB;
 
-if (getenv('MEDIAWIKI_DB_TABLE_OPTIONS') != '') {
-    $wgDBTableOptions = getenv('MEDIAWIKI_DB_TABLE_OPTIONS');
+    if (getenv('MEDIAWIKI_DB_PREFIX') != '') {
+        $wgDBprefix = getenv('MEDIAWIKI_DB_PREFIX');
+    }
+
+    if (getenv('MEDIAWIKI_DB_TABLE_OPTIONS') != '') {
+        $wgDBTableOptions = getenv('MEDIAWIKI_DB_TABLE_OPTIONS');
+    }
 }
 
 $wgDBmysql5 = false;
