@@ -1,5 +1,9 @@
 # Docker MediaWiki
 
+[![DockerHub Pulls](https://img.shields.io/docker/pulls/kristophjunge/mediawiki.svg)](https://hub.docker.com/r/kristophjunge/mediawiki/) [![DockerHub Stars](https://img.shields.io/docker/stars/kristophjunge/mediawiki.svg)](https://hub.docker.com/r/kristophjunge/mediawiki/) [![GitHub Stars](https://img.shields.io/github/stars/kristophjunge/docker-mediawiki.svg?label=github%20stars)](https://github.com/kristophjunge/docker-mediawiki) [![GitHub Forks](https://img.shields.io/github/forks/kristophjunge/docker-mediawiki.svg?label=github%20forks)](https://github.com/kristophjunge/docker-mediawiki) [![GitHub License](https://img.shields.io/github/license/kristophjunge/docker-mediawiki.svg)](https://github.com/kristophjunge/docker-mediawiki)
+
+[![MediaWiki](https://raw.githubusercontent.com/kristophjunge/docker-mediawiki/master/mediawiki.png)](https://www.mediawiki.org)
+
 Docker container for [MediaWiki](https://www.mediawiki.org) running under [Nginx](https://www.nginx.com) and [PHP-FPM](https://php-fpm.org/). Based on the official PHP7 [images](https://hub.docker.com/_/php/).
 
 Packaged with the [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin and its dependant [Parsoid](https://www.mediawiki.org/wiki/Parsoid) service.
@@ -336,6 +340,11 @@ COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
 * Parsoid runs only inside the container. There is no port exposed.
 * The MediaWiki files are owned by `root`. Only the `images` folder is owned by `www-data`.
 * The Parsoid files are all owned by `root`.
+
+
+## License
+
+This project is licensed under the MIT license by Kristoph Junge.
 
 
 ## Known issues
