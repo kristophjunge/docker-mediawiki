@@ -1,6 +1,7 @@
 ## 2017-06-17 1.28.2-1
 
 * Updated to MediaWiki 1.28.2.
+* Added GPG signature check of downloaded MediaWiki release.
 
 ## 2017-02-06 1.28.0-7
 

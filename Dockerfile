@@ -88,11 +88,17 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 # MediaWiki
 ARG MEDIAWIKI_VERSION_MAJOR=1.28
 ARG MEDIAWIKI_VERSION=1.28.2
+
+ADD https://www.mediawiki.org/keys/keys.txt /tmp/keys.txt
 ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
-RUN mkdir -p /var/www/mediawiki /data /images && \
+ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz.sig /tmp/mediawiki.tar.gz.sig
+RUN gpg --import /tmp/keys.txt && \
+    gpg --list-keys --fingerprint --with-colons | sed -E -n -e 's/^fpr:::::::::([0-9A-F]+):$/\1:6:/p' | gpg --import-ownertrust && \
+    gpg --verify /tmp/mediawiki.tar.gz.sig /tmp/mediawiki.tar.gz && \
+    mkdir -p /var/www/mediawiki /data /images && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
     mv /tmp/mediawiki-$MEDIAWIKI_VERSION/* /var/www/mediawiki && \
-    rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION/ && \
+    rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION/ /tmp/keys.txt && \
     chown -R www-data:www-data /data /images && \
     rm -rf /var/www/mediawiki/images && \
     ln -s /images /var/www/mediawiki/images
