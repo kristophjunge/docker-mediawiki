@@ -2,6 +2,7 @@
 
 * Updated to MediaWiki 1.28.2.
 * Added GPG signature check of downloaded MediaWiki release.
+* Moved docker entry point from /script/docker-entry.sh to /docker-entrypoint.sh to be more convenient.
 
 ## 2017-02-06 1.28.0-7
 

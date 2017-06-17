@@ -119,6 +119,9 @@ RUN tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions &&
 # Set work dir
 WORKDIR /var/www/mediawiki
 
+# Copy docker entry point script
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
 # Copy install and update script
 RUN mkdir /script
 COPY script/* /script/
