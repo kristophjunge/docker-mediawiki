@@ -129,4 +129,5 @@ COPY script/* /script/
 # General setup
 VOLUME ["/var/cache/nginx", "/data", "/images"]
 EXPOSE 80 443
-CMD ["/script/docker-entry.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD []
