@@ -19,7 +19,7 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 
 ## Features
 
-- [MediaWiki](https://www.mediawiki.org) 1.28.0
+- [MediaWiki](https://www.mediawiki.org) 1.28.2
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
 - [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin

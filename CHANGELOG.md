@@ -1,3 +1,7 @@
+## 2017-06-17 1.28.2-1
+
+* Updated to MediaWiki 1.28.2.
+
 ## 2017-02-06 1.28.0-7
 
 * Changed default session storage to database instead of in-memory when using mysql.

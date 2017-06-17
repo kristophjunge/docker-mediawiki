@@ -87,7 +87,7 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 
 # MediaWiki
 ARG MEDIAWIKI_VERSION_MAJOR=1.28
-ARG MEDIAWIKI_VERSION=1.28.0-rc.1
+ARG MEDIAWIKI_VERSION=1.28.2
 ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
 RUN mkdir -p /var/www/mediawiki /data /images && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
