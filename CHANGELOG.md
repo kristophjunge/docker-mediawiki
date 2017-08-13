@@ -1,3 +1,7 @@
+## 2017-08-13 1.29.0-1
+
+* Updated to MediaWiki 1.29.0.
+
 ## 2017-06-17 1.28.2-1
 
 * Updated to MediaWiki 1.28.2.

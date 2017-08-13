@@ -86,8 +86,8 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 #COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
 
 # MediaWiki
-ARG MEDIAWIKI_VERSION_MAJOR=1.28
-ARG MEDIAWIKI_VERSION=1.28.2
+ARG MEDIAWIKI_VERSION_MAJOR=1.29
+ARG MEDIAWIKI_VERSION=1.29.0
 
 ADD https://www.mediawiki.org/keys/keys.txt /tmp/keys.txt
 ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
@@ -105,13 +105,13 @@ RUN gpg --import /tmp/keys.txt && \
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
-ARG EXTENSION_VISUALEDITOR_VERSION=REL1_28-93528b7
+ARG EXTENSION_VISUALEDITOR_VERSION=REL1_29-ef45039
 ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz /tmp/extension-visualeditor.tar.gz
 RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
 
 # User merge and delete extension
-ARG EXTENSION_USERMERGE_VERSION=REL1_28-55971e5
+ARG EXTENSION_USERMERGE_VERSION=REL1_29-de5f67d
 ADD https://extdist.wmflabs.org/dist/extensions/UserMerge-$EXTENSION_USERMERGE_VERSION.tar.gz /tmp/extension-usermerge.tar.gz
 RUN tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-usermerge.tar.gz
