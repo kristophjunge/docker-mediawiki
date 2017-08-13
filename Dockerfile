@@ -89,10 +89,10 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 ARG MEDIAWIKI_VERSION_MAJOR=1.29
 ARG MEDIAWIKI_VERSION=1.29.0
 
-ADD https://www.mediawiki.org/keys/keys.txt /tmp/keys.txt
-ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz /tmp/mediawiki.tar.gz
-ADD https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz.sig /tmp/mediawiki.tar.gz.sig
-RUN gpg --import /tmp/keys.txt && \
+RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
+    curl -s -o /tmp/mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz && \
+    curl -s -o /tmp/mediawiki.tar.gz.sig https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz.sig && \
+    gpg --import /tmp/keys.txt && \
     gpg --list-keys --fingerprint --with-colons | sed -E -n -e 's/^fpr:::::::::([0-9A-F]+):$/\1:6:/p' | gpg --import-ownertrust && \
     gpg --verify /tmp/mediawiki.tar.gz.sig /tmp/mediawiki.tar.gz && \
     mkdir -p /var/www/mediawiki /data /images && \
@@ -106,14 +106,14 @@ COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
 ARG EXTENSION_VISUALEDITOR_VERSION=REL1_29-ef45039
-ADD https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz /tmp/extension-visualeditor.tar.gz
-RUN tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
+RUN curl -s -o /tmp/extension-visualeditor.tar.gz https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz && \
+    tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
 
 # User merge and delete extension
 ARG EXTENSION_USERMERGE_VERSION=REL1_29-de5f67d
-ADD https://extdist.wmflabs.org/dist/extensions/UserMerge-$EXTENSION_USERMERGE_VERSION.tar.gz /tmp/extension-usermerge.tar.gz
-RUN tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions && \
+RUN curl -s -o /tmp/extension-usermerge.tar.gz https://extdist.wmflabs.org/dist/extensions/UserMerge-$EXTENSION_USERMERGE_VERSION.tar.gz && \
+    tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-usermerge.tar.gz
 
 # Set work dir
