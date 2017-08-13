@@ -345,8 +345,3 @@ COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
 ## License
 
 This project is licensed under the MIT license by Kristoph Junge.
-
-
-## Known issues
-
-* VisualEditor is currently not working with SQLite (Error: 5 database is locked). However the default editor is working. You can use `MEDIAWIKI_ENABLE_VISUAL_EDITOR` to disable VisualEditor.

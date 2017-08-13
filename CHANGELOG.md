@@ -4,6 +4,7 @@
 * Switched downloads to CURL instead of Docker ADD since it now extracts downloaded archives.
 * Added container_name property to docker-compose example files.
 * Switched docker-compose example port from 8080 to 80.
+* Removed known issue that VisualEditor is not working with SQLite.
 
 ## 2017-06-17 1.28.2-1
 
