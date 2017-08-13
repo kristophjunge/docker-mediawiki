@@ -7,17 +7,18 @@ services:
     image: kristophjunge/mediawiki
     container_name: wiki
     environment:
-      MEDIAWIKI_SERVER: http://localhost:8080
+      MEDIAWIKI_SERVER: http://localhost
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: mysecret
       MEDIAWIKI_DB_TYPE: sqlite
       MEDIAWIKI_DB_NAME: wikidb
       MEDIAWIKI_ENABLE_UPLOADS: 1
-      MEDIAWIKI_ENABLE_VISUAL_EDITOR: 0
+      MEDIAWIKI_ENABLE_VISUAL_EDITOR: 1
       MEDIAWIKI_DEFAULT_SKIN: vector
+      MEDIAWIKI_DEBUG: 1
     ports:
-    - "8080:80"
+    - "80:80"
     volumes:
     - /srv/mediawiki/images:/images
     - /srv/mediawiki/data:/data

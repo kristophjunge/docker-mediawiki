@@ -7,10 +7,10 @@ services:
     image: kristophjunge/mediawiki
     container_name: wiki
     environment:
-      MEDIAWIKI_SERVER: http://localhost:8080
+      MEDIAWIKI_SERVER: http://localhost
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
-      MEDIAWIKI_SECRET_KEY: mysecret
+      MEDIAWIKI_SECRET_KEY: a6578339c8f73c8721b43241056d28af5be10dd922cd426ef10f086dd590aa8e
       MEDIAWIKI_DB_TYPE: mysql
       MEDIAWIKI_DB_HOST: db
       MEDIAWIKI_DB_PORT: 3306
@@ -22,7 +22,7 @@ services:
       MEDIAWIKI_ENABLE_VISUAL_EDITOR: 1
       MEDIAWIKI_DEFAULT_SKIN: vector
     ports:
-    - "8080:80"
+    - "80:80"
     links:
     - db:db
     volumes:
@@ -38,4 +38,4 @@ services:
       MYSQL_PASSWORD: mysecret
       MYSQL_RANDOM_ROOT_PASSWORD: 1
     volumes:
-    - /srv/mediawiki/mysql:/var/lib/mysql
+    - /srv/mediawiki2/mysql:/var/lib/mysql
