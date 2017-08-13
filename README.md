@@ -13,13 +13,14 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 
 ## Supported Tags
 
+- `1.29` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.29/Dockerfile)
 - `1.28` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.28/Dockerfile)
 - `1.27` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.27/Dockerfile)
 
 
 ## Features
 
-- [MediaWiki](https://www.mediawiki.org) 1.28.2
+- [MediaWiki](https://www.mediawiki.org) 1.29.0
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
 - [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin
