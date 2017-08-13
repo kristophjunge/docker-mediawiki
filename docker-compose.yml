@@ -4,6 +4,7 @@ version: '2'
 services:
   wiki:
     build: .
+    container_name: wiki
     environment:
       MEDIAWIKI_HTTPS: 1
       MEDIAWIKI_SERVER: https://localhost
@@ -48,6 +49,7 @@ services:
     - ./testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
   db:
     image: mysql:5.7
+    container_name: db
     environment:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser

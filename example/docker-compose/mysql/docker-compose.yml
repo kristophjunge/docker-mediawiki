@@ -1,10 +1,11 @@
 # Do not forget to create a new database on your first run:
-# $ docker exec -i -t mysql_wiki_1 /script/install.sh <username> <password>
+# $ docker exec -it wiki /script/install.sh <username> <password>
 version: '2'
 services:
   wiki:
     #build: ./../../../ # Uncomment to build from source
     image: kristophjunge/mediawiki
+    container_name: wiki
     environment:
       MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
@@ -30,6 +31,7 @@ services:
     #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
   db:
     image: mysql:5.7
+    container_name: db
     environment:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser

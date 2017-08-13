@@ -2,6 +2,7 @@
 
 * Updated to MediaWiki 1.29.0.
 * Switched downloads to CURL instead of Docker ADD since it now extracts downloaded archives.
+* Added container_name property to docker-compose example files.
 
 ## 2017-06-17 1.28.2-1
 
