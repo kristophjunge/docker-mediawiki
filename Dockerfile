@@ -9,17 +9,17 @@ RUN usermod -u $MEDIAWIKI_USER_UID www-data && \
 
 # Utilities
 RUN apt-get update && \
-    apt-get -y install apt-transport-https git curl --no-install-recommends && \
+    apt-get -y install apt-transport-https ca-certificates git curl --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
 # MySQL PHP extension
 RUN docker-php-ext-install mysqli
 
 # Pear mail
-RUN apt-get update && \
-    apt-get install -y php-pear --no-install-recommends && \
-    pear install mail Net_SMTP && \
-    rm -r /var/lib/apt/lists/*
+RUN curl -s -o /tmp/go-pear.phar http://pear.php.net/go-pear.phar && \
+    echo '/usr/bin/php /tmp/go-pear.phar "$@"' > /usr/bin/pear && \
+    chmod +x /usr/bin/pear && \
+    pear install mail Net_SMTP
 
 # Imagick with PHP extension
 RUN apt-get update && apt-get install -y imagemagick libmagickwand-6.q16-dev --no-install-recommends && \
@@ -41,11 +41,8 @@ RUN pecl install apcu && \
     docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
 
 # Nginx
-RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
-    echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
-ARG NGINX_VERSION=1.9.9-1~jessie
 RUN apt-get update && \
-    apt-get -y install ca-certificates nginx=${NGINX_VERSION} --no-install-recommends && \
+    apt-get -y install nginx && \
     rm -r /var/lib/apt/lists/*
 COPY config/nginx/* /etc/nginx/
 
