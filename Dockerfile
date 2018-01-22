@@ -83,33 +83,32 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 #COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
 
 # MediaWiki
-ARG MEDIAWIKI_VERSION_MAJOR=1.29
-ARG MEDIAWIKI_VERSION=1.29.0
+ARG MEDIAWIKI_VERSION_MAJOR=1
+ARG MEDIAWIKI_VERSION_MINOR=29
+ARG MEDIAWIKI_VERSION_BUGFIX=0
 
 RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
-    curl -s -o /tmp/mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz && \
-    curl -s -o /tmp/mediawiki.tar.gz.sig https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz.sig && \
+    curl -s -o /tmp/mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX.tar.gz && \
+    curl -s -o /tmp/mediawiki.tar.gz.sig https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX.tar.gz.sig && \
     gpg --import /tmp/keys.txt && \
     gpg --list-keys --fingerprint --with-colons | sed -E -n -e 's/^fpr:::::::::([0-9A-F]+):$/\1:6:/p' | gpg --import-ownertrust && \
     gpg --verify /tmp/mediawiki.tar.gz.sig /tmp/mediawiki.tar.gz && \
     mkdir -p /var/www/mediawiki /data /images && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
-    mv /tmp/mediawiki-$MEDIAWIKI_VERSION/* /var/www/mediawiki && \
-    rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION/ /tmp/keys.txt && \
+    mv /tmp/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX/* /var/www/mediawiki && \
+    rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX/ /tmp/keys.txt && \
     chown -R www-data:www-data /data /images && \
     rm -rf /var/www/mediawiki/images && \
     ln -s /images /var/www/mediawiki/images
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension
-ARG EXTENSION_VISUALEDITOR_VERSION=REL1_29-ef45039
-RUN curl -s -o /tmp/extension-visualeditor.tar.gz https://extdist.wmflabs.org/dist/extensions/VisualEditor-$EXTENSION_VISUALEDITOR_VERSION.tar.gz && \
+RUN curl -s -o /tmp/extension-visualeditor.tar.gz https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL${MEDIAWIKI_VERSION_MAJOR}_${MEDIAWIKI_VERSION_MINOR}-`curl -s https://extdist.wmflabs.org/dist/extensions/ | grep -o -P "(?<=VisualEditor-REL${MEDIAWIKI_VERSION_MAJOR}_${MEDIAWIKI_VERSION_MINOR}-)[0-9a-z]{7}(?=.tar.gz)" | head -1`.tar.gz && \
     tar -xzf /tmp/extension-visualeditor.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-visualeditor.tar.gz
 
 # User merge and delete extension
-ARG EXTENSION_USERMERGE_VERSION=REL1_29-de5f67d
-RUN curl -s -o /tmp/extension-usermerge.tar.gz https://extdist.wmflabs.org/dist/extensions/UserMerge-$EXTENSION_USERMERGE_VERSION.tar.gz && \
+RUN curl -s -o /tmp/extension-usermerge.tar.gz https://extdist.wmflabs.org/dist/extensions/UserMerge-REL${MEDIAWIKI_VERSION_MAJOR}_${MEDIAWIKI_VERSION_MINOR}-`curl -s https://extdist.wmflabs.org/dist/extensions/ | grep -o -P "(?<=UserMerge-REL${MEDIAWIKI_VERSION_MAJOR}_${MEDIAWIKI_VERSION_MINOR}-)[0-9a-z]{7}(?=.tar.gz)" | head -1`.tar.gz && \
     tar -xzf /tmp/extension-usermerge.tar.gz -C /var/www/mediawiki/extensions && \
     rm /tmp/extension-usermerge.tar.gz
 
