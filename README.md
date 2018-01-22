@@ -10,6 +10,8 @@ Packaged with the [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) pl
 
 This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [supervisord](http://supervisord.org/).
 
+For a basic understanding of docker please refer to the official [documentation](https://docs.docker.com/).
+
 
 ## Supported Tags
 
