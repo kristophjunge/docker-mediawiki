@@ -103,8 +103,6 @@ You should be able to browse your wiki at [http://localhost:8080](http://localho
 
 See Docker Compose [example](https://github.com/kristophjunge/docker-mediawiki/blob/master/example/docker-compose/sqlite/docker-compose.yml).
 
-**Warning**: There is a known issue that VisualEditor currently is not work when using SQLite.
-
 Start MediaWiki container.
 
 ```
@@ -116,7 +114,7 @@ docker run --name=some-wiki \
 -e MEDIAWIKI_DB_TYPE=sqlite \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
--e MEDIAWIKI_ENABLE_VISUAL_EDITOR=0 \
+-e MEDIAWIKI_ENABLE_VISUAL_EDITOR=1 \
 -v /srv/mediawiki/images:/images \
 -v /srv/mediawiki/data:/data \
 -d kristophjunge/mediawiki
