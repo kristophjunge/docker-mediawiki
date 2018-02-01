@@ -190,6 +190,18 @@ Mount a writable volume to the images folder.
 -v /srv/mediawiki/images:/images
 ```
 
+Which file extensions are allowed for uploading can be controlled with the environment variable `MEDIAWIKI_FILE_EXTENSIONS`.
+
+```
+-e MEDIAWIKI_FILE_EXTENSIONS=png,gif,jpg,jpeg,webp,pdf
+```
+
+The maximum size for file uploads can be controlled with the environment variable `MEDIAWIKI_MAX_UPLOAD_SIZE`.
+
+```
+-e MEDIAWIKI_MAX_UPLOAD_SIZE=100M
+```
+
 
 ### E-Mail
 
@@ -341,7 +353,7 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_DB_PREFIX | $wgDBprefix | Database table name prefix |
 | MEDIAWIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |
 | MEDIAWIKI_ENABLE_UPLOADS | $wgEnableUploads | Enable file uploads, Default 0 |
-| MEDIAWIKI_MAX_UPLOAD SIZE | $wgMaxUploadSize | Max file upload size, Default 100M |
+| MEDIAWIKI_MAX_UPLOAD_SIZE | $wgMaxUploadSize | Max file upload size, Default 100M |
 | MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED | - | Enable the VisualEditor plugin, Default 1 |
 | MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED | - | Enable the UserMerge plugin, Default 1 |
 | MEDIAWIKI_FILE_EXTENSIONS | $wgFileExtensions | Allowed file extensions, comma separated |

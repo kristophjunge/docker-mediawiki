@@ -134,7 +134,7 @@ if (getenv('MEDIAWIKI_ENABLE_UPLOADS') == '1') {
 }
 
 if (getenv('MEDIAWIKI_FILE_EXTENSIONS') != '') {
-    foreach (explode(', ', getenv('MEDIAWIKI_FILE_EXTENSIONS')) as $extension) {
+    foreach (explode(',', getenv('MEDIAWIKI_FILE_EXTENSIONS')) as $extension) {
         $wgFileExtensions[] = trim($extension);
     }
 }
