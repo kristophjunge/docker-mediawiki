@@ -1,3 +1,4 @@
 testdata/
 docker-compose.yml
 README.md
+.env
