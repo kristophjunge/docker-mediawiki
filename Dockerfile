@@ -97,9 +97,9 @@ RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
     tar -xzf /tmp/mediawiki.tar.gz -C /tmp && \
     mv /tmp/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX/* /var/www/mediawiki && \
     rm -rf /tmp/mediawiki.tar.gz /tmp/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX/ /tmp/keys.txt && \
-    chown -R www-data:www-data /data /images && \
     rm -rf /var/www/mediawiki/images && \
-    ln -s /images /var/www/mediawiki/images
+    ln -s /images /var/www/mediawiki/images && \
+    chown -R www-data:www-data /data /images /var/www/mediawiki/images
 COPY config/mediawiki/* /var/www/mediawiki/
 
 # VisualEditor extension

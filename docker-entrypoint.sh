@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fix permissions of images folder
-chown -R 999:999 /var/www/mediawiki/images
+chown -R 999:999 /images /var/www/mediawiki/images
 
 # Set upload size default to be used in PHP config
 MEDIAWIKI_MAX_UPLOAD_SIZE=${MEDIAWIKI_MAX_UPLOAD_SIZE:="100M"}
