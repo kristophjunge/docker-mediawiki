@@ -34,6 +34,11 @@ For a basic understanding of docker please refer to the official [documentation]
 - Configured with [Short URLs](https://www.mediawiki.org/wiki/Manual:Short_URL)
 
 
+## Changelog
+
+See [CHANGELOG.md](https://github.com/kristophjunge/docker-mediawiki/blob/master/docs/CHANGELOG.md) for information about the latest changes.
+
+
 ## Usage
 
 ### With MySQL
@@ -392,6 +397,13 @@ COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
 * The MediaWiki files are owned by `root`. Only the `images` folder is owned by `www-data`.
 * The Parsoid files are all owned by `root`.
 * During container build signatures and keys of installed software is verified where possible.
+
+
+## Contributing
+
+See [CONTRIBUTION.md](https://github.com/kristophjunge/docker-mediawiki/blob/master/CONTRIBUTION.md) for information on how to contribute to the project.
+
+See [CONTRIBUTORS.md](https://github.com/kristophjunge/docker-mediawiki/blob/master/CONTRIBUTORS.md) for the list of contributors.
 
 
 ## License
