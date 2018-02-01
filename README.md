@@ -275,6 +275,41 @@ However this will make all environment variables unusable except `MEDIAWIKI_HTTP
 ```
 
 
+### Performance
+
+The container has some performance related configuration options. If you have more advanced needs you can override the configuration inside the container by mounting configuration files.
+
+The number of PHP-FPM worker processes can be configured with the environment variables `PHPFPM_WORKERS_START`, `PHPFPM_WORKERS_MIN` and `PHPFPM_WORKERS_MAX`.
+
+```
+-e PHPFPM_WORKERS_START=10
+-e PHPFPM_WORKERS_MIN=10
+-e PHPFPM_WORKERS_MAX=20
+```
+
+Default for start and min is `1`. Default for max is `20`, so up to `20` worker processes will be spawned dynamically when needed. 
+
+For a more advanced configuration of PHP-FPM mount a configuration file to `/usr/local/etc/php-fpm.conf`. 
+
+```
+-v /srv/mediawiki/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+```
+
+The number of Parsoid worker processes can be configured with the environment variable `PARSOID_WORKERS`.
+
+```
+-e PARSOID_WORKERS=10
+```
+
+Default is `1`. Please note that the number of Parsoid workers is not managed dynamically. Make sure that you spawn enough workers for your requirements.
+
+For a more advanced configuration of Parsoid mount a configuration file to `/usr/lib/parsoid/src/config.yaml`.
+
+```
+-v /srv/mediawiki/config.yaml:/usr/lib/parsoid/src/config.yaml:ro
+```
+
+
 ## Configuration reference
 
 Below is a list of all environment variables supported by the container.
@@ -319,7 +354,10 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_SMTP_PASSWORD | $wgSMTP | SMTP auth password |
 | MEDIAWIKI_EMERGENCY_CONTACT | $wgEmergencyContact | Admin contact E-Mail |
 | MEDIAWIKI_PASSWORD_SENDER | $wgPasswordSender | E-Mail sender for password forgot mails |
-
+| PHPFPM_WORKERS_START | - | Number of PHP-FPM worker processes to be started initially, Default 1 |
+| PHPFPM_WORKERS_MIN | - | Minimum number of PHP-FPM worker processes, Default 1 |
+| PHPFPM_WORKERS_MAX | - | Maximum number of PHP-FPM worker processes, Default 20 |
+| PARSOID_WORKERS | - | Static number of Parsoid worker processes, Default 1 |
 
 ## Extending this image
 
