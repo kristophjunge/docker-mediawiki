@@ -332,11 +332,11 @@ More information about the configuration values can be found at MediaWiki's [doc
 | MEDIAWIKI_META_NAMESPACE | $wgMetaNamespace | Namespace, Defaults to MEDIAWIKI_SITENAME |
 | MEDIAWIKI_SECRET_KEY | $wgSecretKey | Secret key |
 | MEDIAWIKI_UPGRADE_KEY | $wgUpgradeKey | Upgrade key |
-| MEDIAWIKI_DB_TYPE | $wgDBtype | Database type, Default is "mysql" |
-| MEDIAWIKI_DB_HOST | $wgDBserver | Database host, Default is "127.0.0.1" |
-| MEDIAWIKI_DB_PORT | $wgDBserver | Database port, Default is "3306" |
-| MEDIAWIKI_DB_NAME | $wgDBname | Database name, Default is "wikidb" |
-| MEDIAWIKI_DB_USER | $wgDBuser | Database user, Default is "wikiuser" |
+| MEDIAWIKI_DB_TYPE | $wgDBtype | Database type |
+| MEDIAWIKI_DB_HOST | $wgDBserver | Database host |
+| MEDIAWIKI_DB_PORT | $wgDBserver | Database port |
+| MEDIAWIKI_DB_NAME | $wgDBname | Database name |
+| MEDIAWIKI_DB_USER | $wgDBuser | Database user |
 | MEDIAWIKI_DB_PASSWORD | $wgDBpassword | Database password |
 | MEDIAWIKI_DB_PREFIX | $wgDBprefix | Database table name prefix |
 | MEDIAWIKI_DB_TABLE_OPTIONS | $wgDBTableOptions | Table options |

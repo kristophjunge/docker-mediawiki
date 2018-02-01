@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Setup default values
-#MEDIAWIKI_DB_NAME=${MEDIAWIKI_DB_NAME:=wikidb}
-#MEDIAWIKI_DB_TYPE=${MEDIAWIKI_DB_TYPE:=sqlite}
-
 cd /var/www/mediawiki
 
 # Move generic config out of place or installer wont run
@@ -15,6 +11,7 @@ php maintenance/install.php Wiki $1 --pass=$2 \
  --dbserver=${MEDIAWIKI_DB_HOST} \
  --dbtype=${MEDIAWIKI_DB_TYPE} \
  --dbname=${MEDIAWIKI_DB_NAME} \
+ --dbprefix=${MEDIAWIKI_DB_PREFIX} \
  --installdbuser=${MEDIAWIKI_DB_USER} \
  --installdbpass=${MEDIAWIKI_DB_PASSWORD} \
  --dbuser=${MEDIAWIKI_DB_USER} \
