@@ -72,16 +72,6 @@ RUN apt-key advanced --keyserver pgp.mit.edu --recv-keys 90E9F83F22250DD7 && \
 COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
 ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 
-# Parsoid from git repo. Installs latest version
-#ARG PARSOID_GIT_BRANCH=master
-#RUN mkdir -p /usr/lib/parsoid/src
-#RUN useradd parsoid --no-create-home --home-dir /usr/lib/parsoid/src --shell /usr/sbin/nologin
-#RUN git clone https://gerrit.wikimedia.org/r/p/mediawiki/services/parsoid /tmp/parsoid
-#RUN git --git-dir=/tmp/parsoid/.git --work-tree=/tmp/parsoid archive --format=tar $PARSOID_GIT_BRANCH | tar -xf - -C /usr/lib/parsoid/src
-#RUN rm -rf /tmp/parsoid
-#RUN npm install --prefix /usr/lib/parsoid/src
-#COPY config/parsoid/config.yaml /usr/lib/parsoid/src/config.yaml
-
 # MediaWiki
 ARG MEDIAWIKI_VERSION_MAJOR=1
 ARG MEDIAWIKI_VERSION_MINOR=29
