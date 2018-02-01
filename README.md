@@ -12,6 +12,29 @@ This container is running 3 processes (Nginx, PHP-FPM, Parsoid) controlled by [s
 
 For a basic understanding of docker please refer to the official [documentation](https://docs.docker.com/).
 
+   * [Supported Tags](#supported-tags)
+   * [Features](#features)
+   * [Changelog](#changelog)
+   * [Usage](#usage)
+      * [With MySQL](#with-mysql)
+      * [With SQLite](#with-sqlite)
+   * [Configuration](#configuration)
+      * [General](#general)
+      * [HTTPS](#https)
+      * [Uploads](#uploads)
+      * [E-Mail](#e-mail)
+      * [Logo](#logo)
+      * [Skins](#skins)
+      * [Extensions](#extensions)
+      * [Additional configuration](#additional-configuration)
+      * [Configuration file](#configuration-file)
+      * [Performance](#performance)
+   * [Configuration reference](#configuration-reference)
+   * [Extending this image](#extending-this-image)
+   * [Security](#security)
+   * [Contributing](#contributing)
+   * [License](#license)
+
 
 ## Supported Tags
 
