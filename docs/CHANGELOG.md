@@ -1,3 +1,21 @@
+## 2018-02-01 1.29.0-2
+
+* Introduced dynamic detection of media wiki extension release file names. Removed build arguments MEDIAWIKI_VERSION, EXTENSION_VISUALEDITOR_VERSION, EXTENSION_USERMERGE_VERSION. Added build arguments MEDIAWIKI_VERSION_MINOR, MEDIAWIKI_VERSION_BUGFIX. 
+* Fixed PEAR and nginx installation after PHP base image changes. Removed build argument NGINX_VERSION.
+* \#7 Added a link to the official docker documentation.
+* Removed remaining occurrences of known issue that VisualEditor is not working with SQLite.
+* Added environment variables PHPFPM_WORKERS_START, PHPFPM_WORKERS_MIN, PHPFPM_WORKERS_MAX, PARSOID_WORKERS. Default number of Parsoid and PHP-FPM workers is now 1.
+* Added security info that signatures are checked during installation.
+* \#9 Fixed usage of MEDIAWIKI_DB_PREFIX. Removed invalid information from README.md about default values of MEDIAWIKI_DB_* environment variables.
+* Added .env file to .dockerignore to exclude it from local builds.
+* Updated development environment docker-compose.yml with opened MySQL port and all ports opened only on local interface.
+* \#10 Fixed privileges of images folder.
+* Removed unused old Parsoid installation routine
+* \#14 Included mime types in nginx configs.
+* \#18 Made parsing of MEDIAWIKI_FILE_EXTENSIONS independent of spaces. Added more documentation regarding uploads.
+* Moved CHANGELOG.md and CONTRIBUTORS.md to docs folder. Created CONTRIBUTING.md. Added links to README.md.
+* Added ToC to README.md.
+
 ## 2017-08-13 1.29.0-1
 
 * Updated to MediaWiki 1.29.0.
