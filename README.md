@@ -379,6 +379,7 @@ COPY ./LocalSettings.php /var/www/mediawiki/LocalSettings.php
 * Parsoid runs only inside the container. There is no port exposed.
 * The MediaWiki files are owned by `root`. Only the `images` folder is owned by `www-data`.
 * The Parsoid files are all owned by `root`.
+* During container build signatures and keys of installed software is verified where possible.
 
 
 ## License
