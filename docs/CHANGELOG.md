@@ -1,3 +1,7 @@
+## 2018-02-01 1.29.2-1
+
+* Updated to MediaWiki 1.29.2.
+
 ## 2018-02-01 1.29.0-2
 
 * Introduced dynamic detection of media wiki extension release file names. Removed build arguments MEDIAWIKI_VERSION, EXTENSION_VISUALEDITOR_VERSION, EXTENSION_USERMERGE_VERSION. Added build arguments MEDIAWIKI_VERSION_MINOR, MEDIAWIKI_VERSION_BUGFIX. 
