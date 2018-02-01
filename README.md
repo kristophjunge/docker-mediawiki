@@ -38,6 +38,7 @@ For a basic understanding of docker please refer to the official [documentation]
 
 ## Supported Tags
 
+- `1.30` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.30/Dockerfile)
 - `1.29` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.29/Dockerfile)
 - `1.28` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.28/Dockerfile)
 - `1.27` [(Dockerfile)](https://github.com/kristophjunge/docker-mediawiki/blob/1.27/Dockerfile)
@@ -45,7 +46,7 @@ For a basic understanding of docker please refer to the official [documentation]
 
 ## Features
 
-- [MediaWiki](https://www.mediawiki.org) 1.29.2
+- [MediaWiki](https://www.mediawiki.org) 1.30.0
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
 - [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin
