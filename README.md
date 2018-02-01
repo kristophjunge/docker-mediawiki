@@ -45,7 +45,7 @@ For a basic understanding of docker please refer to the official [documentation]
 
 ## Features
 
-- [MediaWiki](https://www.mediawiki.org) 1.29.0
+- [MediaWiki](https://www.mediawiki.org) 1.29.2
 - [Nginx](https://www.nginx.com)
 - [PHP-FPM](https://php-fpm.org/) with [PHP7](https://www.mediawiki.org/wiki/Compatibility/de#PHP)
 - [VisualEditor](https://www.mediawiki.org/wiki/VisualEditor) plugin

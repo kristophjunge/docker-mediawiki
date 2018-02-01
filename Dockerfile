@@ -75,7 +75,7 @@ ENV NODE_PATH /usr/lib/parsoid/node_modules:/usr/lib/parsoid/src
 # MediaWiki
 ARG MEDIAWIKI_VERSION_MAJOR=1
 ARG MEDIAWIKI_VERSION_MINOR=29
-ARG MEDIAWIKI_VERSION_BUGFIX=0
+ARG MEDIAWIKI_VERSION_BUGFIX=2
 
 RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
     curl -s -o /tmp/mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR/mediawiki-$MEDIAWIKI_VERSION_MAJOR.$MEDIAWIKI_VERSION_MINOR.$MEDIAWIKI_VERSION_BUGFIX.tar.gz && \
