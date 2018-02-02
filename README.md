@@ -20,12 +20,12 @@ For a basic understanding of docker please refer to the official [documentation]
       * [With SQLite](#with-sqlite)
    * [Configuration](#configuration)
       * [General](#general)
-      * [HTTPS](#https)
       * [Uploads](#uploads)
       * [E-Mail](#e-mail)
       * [Logo](#logo)
       * [Skins](#skins)
       * [Extensions](#extensions)
+      * [HTTPS](#https)
       * [Additional configuration](#additional-configuration)
       * [Configuration file](#configuration-file)
       * [Performance](#performance)
@@ -187,24 +187,6 @@ Set the mandatory environment variables:
 ```
 
 
-### HTTPS
-
-To enable HTTPS set the environment variable `MEDIAWIKI_HTTPS` to 1.
-When using HTTPS the value of `MEDIAWIKI_SERVER` should start with `https://`.
-Don't forget to open a port for HTTPS communication.
-Mount your SSL certificate and private key into the container.
-
-```
--p 443:443 \
--e MEDIAWIKI_HTTPS=1 \
--e MEDIAWIKI_SERVER=https://localhost \
--v /srv/mediawiki/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro \
--v /srv/mediawiki/ssl/private.key:/etc/ssl/crt/private.key:ro
-```
-
-When `MEDIAWIKI_HTTPS` is set to 1 all requests to HTTP URLs will be redirected to HTTPS to enforce a secure connection.
-
-
 ### Uploads
 
 To enable file uploads set the environment variable `MEDIAWIKI_ENABLE_UPLOADS` to 1.
@@ -278,6 +260,17 @@ You can add more skins by mounting them.
 
 ```
 -v ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
+```
+
+
+### HTTPS
+
+HTTPS is not longer supported by the container itself. Its recommended to use a proxy container for HTTPS setups. 
+
+Make sure that you set the `MEDIAWIKI_SERVER` environment variable to the outside URL of your wiki and to apply the `https` prefix.
+
+```
+-e MEDIAWIKI_SERVER=https://localhost
 ```
 
 
@@ -363,7 +356,6 @@ More information about the configuration values can be found at MediaWiki's [doc
 
 | Environment Variable | MediaWiki Config | Description |
 |---|---|---|
-| MEDIAWIKI_HTTPS | - | Enable HTTP, Default 0 |
 | MEDIAWIKI_SMTP | - | Enable SMTP mailing, Default 0 |
 | MEDIAWIKI_SMTP_SSL_VERIFY_PEER | - | Disable SMTP auth SSL peer verification, Default 0 |
 | MEDIAWIKI_DEBUG | - | Enable mediawiki's debug log, Logged to /tmp/wiki-debug.log |

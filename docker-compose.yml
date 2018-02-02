@@ -6,8 +6,7 @@ services:
     build: .
     container_name: wiki
     environment:
-      MEDIAWIKI_HTTPS: 1
-      MEDIAWIKI_SERVER: https://localhost
+      MEDIAWIKI_SERVER: http://localhost
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: ${SECRET_KEY}
@@ -43,14 +42,11 @@ services:
       PARSOID_WORKERS: 1
     ports:
     - "127.0.0.1:80:80"
-    - "127.0.0.1:443:443"
     links:
     - db:db
     volumes:
     - /srv/mediawiki/images:/images
     - ./testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
-    - ./testdata/ssl/cert.crt:/etc/ssl/crt/cert.crt:ro
-    - ./testdata/ssl/private.key:/etc/ssl/crt/private.key:ro
     - ./testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
   db:
     image: mysql:5.7
