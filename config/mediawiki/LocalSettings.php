@@ -191,9 +191,7 @@ if (getenv('MEDIAWIKI_SMTP') == '1') {
 }
 
 # VisualEditor
-if (getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '' // Deprecated
-|| getenv('MEDIAWIKI_ENABLE_VISUAL_EDITOR') == '1' // Deprecated
-|| getenv('MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED') == ''
+if (getenv('MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED') == ''
 || getenv('MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED') == '1') {
     wfLoadExtension('VisualEditor');
     $wgDefaultUserOptions['visualeditor-enable'] = 1;

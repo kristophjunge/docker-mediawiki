@@ -143,7 +143,6 @@ docker run --name=mediawiki_wiki \
 -e MEDIAWIKI_DB_TYPE=sqlite \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
--e MEDIAWIKI_ENABLE_VISUAL_EDITOR=1 \
 -v /var/mediawiki/images:/images \
 -v /var/mediawiki/data:/data \
 -d kristophjunge/mediawiki
