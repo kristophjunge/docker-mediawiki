@@ -18,7 +18,7 @@ services:
       MEDIAWIKI_DEFAULT_SKIN: vector
       MEDIAWIKI_DEBUG: 1
     ports:
-    - "80:80"
+    - "8080:8080"
     volumes:
     - /srv/mediawiki/images:/images
     - /srv/mediawiki/data:/data

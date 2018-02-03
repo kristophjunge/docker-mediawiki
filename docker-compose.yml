@@ -6,7 +6,7 @@ services:
     build: .
     container_name: wiki
     environment:
-      MEDIAWIKI_SERVER: http://localhost
+      MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: ${SECRET_KEY}
@@ -41,7 +41,7 @@ services:
       PHPFPM_WORKERS_MAX: 20
       PARSOID_WORKERS: 1
     ports:
-    - "127.0.0.1:80:80"
+    - "127.0.0.1:8080:8080"
     links:
     - db:db
     volumes:

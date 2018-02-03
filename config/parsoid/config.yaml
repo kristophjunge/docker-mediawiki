@@ -10,5 +10,6 @@ services:
     entrypoint: apiServiceWorker
     conf:
         mwApis:
-        - uri: 'http://localhost/api.php'
+        - uri: 'http://localhost:8080/api.php'
+          domain: 'localhost'
         serverPort: 8142

@@ -22,7 +22,7 @@ services:
       MEDIAWIKI_ENABLE_VISUAL_EDITOR: 1
       MEDIAWIKI_DEFAULT_SKIN: vector
     ports:
-    - "80:80"
+    - "8080:8080"
     links:
     - db:db
     volumes:

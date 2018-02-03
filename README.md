@@ -86,7 +86,7 @@ Start MediaWiki container.
 ```
 docker run --name some-wiki \
 --link some-mysql:mysql \
--p 8080:80 \
+-p 8080:8080 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
 -e MEDIAWIKI_LANGUAGE_CODE=en \
@@ -136,7 +136,7 @@ Start MediaWiki container.
 
 ```
 docker run --name=some-wiki \
--p 8080:80 \
+-p 8080:8080 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
 -e MEDIAWIKI_LANGUAGE_CODE=en \
