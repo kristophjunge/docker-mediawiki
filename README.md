@@ -72,7 +72,7 @@ See Docker Compose [example](https://github.com/kristophjunge/docker-mediawiki/b
 Start a MySQL container.
 
 ```
-docker run --name=some-mysql \
+docker run --name=mediawiki_mysql \
 -e MYSQL_DATABASE=wikidb \
 -e MYSQL_USER=wikiuser \
 -e MYSQL_PASSWORD=mysecret \
@@ -85,13 +85,13 @@ Start MediaWiki container.
 
 ```
 docker run --name mediawiki_wiki \
---link mediawiki_mysql:mysql \
+--link mediawiki_mysql:mediawiki_mysql \
 -p 8080:8080 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
 -e MEDIAWIKI_LANGUAGE_CODE=en \
 -e MEDIAWIKI_DB_TYPE=mysql \
--e MEDIAWIKI_DB_HOST=some-mysql \
+-e MEDIAWIKI_DB_HOST=mediawiki_mysql \
 -e MEDIAWIKI_DB_PORT=3306 \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_DB_USER=wikiuser \
@@ -104,13 +104,13 @@ docker run --name mediawiki_wiki \
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -it mediawiki_wiki /script/install.sh <username> <password>
+docker exec -it mediawiki_wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -it mediawiki_wiki /script/update.sh
+docker exec -it mediawiki_wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -151,13 +151,13 @@ docker run --name=mediawiki_wiki \
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -it mediawiki_wiki /script/install.sh <username> <password>
+docker exec -it mediawiki_wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -it mediawiki_wiki /script/update.sh
+docker exec -it mediawiki_wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -293,7 +293,7 @@ You can add own PHP configuration values by mounting an additional configuration
 A good starting point is to copy the file that's inside the container. You can display its content with the following command.
 
 ```
-$ docker exec -it some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
+docker exec -it some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
 ```
 
 
