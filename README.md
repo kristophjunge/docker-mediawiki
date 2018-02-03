@@ -62,6 +62,7 @@ For a basic understanding of docker please refer to the official [documentation]
 
 See [CHANGELOG.md](https://github.com/kristophjunge/docker-mediawiki/blob/master/docs/CHANGELOG.md) for information about the latest changes.
 
+Please note that version 1.30 has some breaking changes.
 
 ## Usage
 
