@@ -294,7 +294,7 @@ You can add own PHP configuration values by mounting an additional configuration
 A good starting point is to copy the file that's inside the container. You can display its content with the following command.
 
 ```
-docker exec -it some-wiki cat /var/www/mediawiki/ExtraLocalSettings.php
+docker exec -it mediawiki_wiki cat /var/www/mediawiki/ExtraLocalSettings.php
 ```
 
 
