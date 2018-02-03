@@ -2,10 +2,8 @@ FROM php:7.0-fpm
 MAINTAINER Kristoph Junge <kristoph.junge@gmail.com>
 
 # Change UID and GID of www-data user to match host privileges
-ARG MEDIAWIKI_USER_UID=999
-ARG MEDIAWIKI_USER_GID=999
-RUN usermod -u $MEDIAWIKI_USER_UID www-data && \
-    groupmod -g $MEDIAWIKI_USER_GID www-data
+RUN usermod -u 999 www-data && \
+    groupmod -g 999 www-data
 
 # Utilities
 RUN apt-get update && \
