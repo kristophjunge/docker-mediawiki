@@ -1,18 +1,18 @@
 # Do not forget to create a new database on your first run:
 # $ docker exec -it wiki /script/install.sh <username> <password>
-version: '2'
+version: '3'
 services:
-  wiki:
+  mediawiki_wiki:
     #build: ./../../../ # Uncomment to build from source
     image: kristophjunge/mediawiki
-    container_name: wiki
+    container_name: mediawiki_wiki
     environment:
-      MEDIAWIKI_SERVER: http://localhost
+      MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: a6578339c8f73c8721b43241056d28af5be10dd922cd426ef10f086dd590aa8e
       MEDIAWIKI_DB_TYPE: mysql
-      MEDIAWIKI_DB_HOST: db
+      MEDIAWIKI_DB_HOST: mediawiki_mysql
       MEDIAWIKI_DB_PORT: 3306
       MEDIAWIKI_DB_NAME: wikidb
       MEDIAWIKI_DB_USER: wikiuser
@@ -22,20 +22,23 @@ services:
       MEDIAWIKI_ENABLE_VISUAL_EDITOR: 1
       MEDIAWIKI_DEFAULT_SKIN: vector
     ports:
-    - "8080:8080"
-    links:
-    - db:db
+    - 8080:8080
+    depends_on:
+    - mediawiki_mysql
     volumes:
-    - /srv/mediawiki/images:/images
+    - mediawiki_images:/images
     #- ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
-  db:
+  mediawiki_mysql:
     image: mysql:5.7
-    container_name: db
+    container_name: mediawiki_mysql
     environment:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD: mysecret
       MYSQL_RANDOM_ROOT_PASSWORD: 1
     volumes:
-    - /srv/mediawiki2/mysql:/var/lib/mysql
+    - mediawiki_mysql:/var/lib/mysql
+volumes:
+  mediawiki_images:
+  mediawiki_mysql:

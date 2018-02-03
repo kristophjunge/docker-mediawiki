@@ -1,10 +1,10 @@
 # To use this image with docker-compose please look at the examples in example/docker-compose.
 # This file is used for development together with .env which you can create by copying .env.default.
-version: '2'
+version: '3'
 services:
-  wiki:
+  mediawiki_wiki:
     build: .
-    container_name: wiki
+    container_name: mediawiki_wiki
     environment:
       MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
@@ -12,7 +12,7 @@ services:
       MEDIAWIKI_SECRET_KEY: ${SECRET_KEY}
       #MEDIAWIKI_META_NAMESPACE: MyNamespace
       MEDIAWIKI_DB_TYPE: mysql
-      MEDIAWIKI_DB_HOST: db
+      MEDIAWIKI_DB_HOST: mediawiki_mysql
       MEDIAWIKI_DB_PORT: 3306
       MEDIAWIKI_DB_NAME: wikidb
       MEDIAWIKI_DB_USER: wikiuser
@@ -34,29 +34,32 @@ services:
       MEDIAWIKI_PASSWORD_SENDER: ${PASSWORD_SENDER}
       MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED: 1
       MEDIAWIKI_EXTENSION_USER_MERGE_ENABLED: 1
-      MEDIAWIKI_FILE_EXTENSIONS: "png,gif,jpg,jpeg,webp,pdf"
+      MEDIAWIKI_FILE_EXTENSIONS: png,gif,jpg,jpeg,webp,pdf
       MEDIAWIKI_DEBUG: 1
       PHPFPM_WORKERS_START: 1
       PHPFPM_WORKERS_MIN: 1
       PHPFPM_WORKERS_MAX: 20
       PARSOID_WORKERS: 1
     ports:
-    - "127.0.0.1:8080:8080"
-    links:
-    - db:db
+    - 127.0.0.1:8080:8080
+    depends_on:
+    - mediawiki_mysql
     volumes:
-    - /srv/mediawiki/images:/images
+    - mediawiki_images:/images
     - ./testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     - ./testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
-  db:
+  mediawiki_mysql:
     image: mysql:5.7
-    container_name: db
+    container_name: mediawiki_mysql
     environment:
       MYSQL_DATABASE: wikidb
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-    - "127.0.0.1:3306:3306"
+    - 127.0.0.1:3306:3306
     volumes:
-    - /srv/mediawiki/mysql:/var/lib/mysql
+    - mediawiki_mysql:/var/lib/mysql
+volumes:
+  mediawiki_images:
+  mediawiki_mysql:

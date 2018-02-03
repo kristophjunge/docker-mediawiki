@@ -1,13 +1,13 @@
 # Do not forget to create a new database on your first run:
 # $ docker exec -it wiki /script/install.sh <username> <password>
-version: '2'
+version: '3'
 services:
-  wiki:
-    #build: ./../../../ # Uncomment to build from source
+  mediawiki_wiki:
+    build: ./../../../ # Uncomment to build from source
     image: kristophjunge/mediawiki
-    container_name: wiki
+    container_name: mediawiki_wiki
     environment:
-      MEDIAWIKI_SERVER: http://localhost
+      MEDIAWIKI_SERVER: http://localhost:8080
       MEDIAWIKI_SITENAME: MyWiki
       MEDIAWIKI_LANGUAGE_CODE: en
       MEDIAWIKI_SECRET_KEY: mysecret
@@ -18,9 +18,12 @@ services:
       MEDIAWIKI_DEFAULT_SKIN: vector
       MEDIAWIKI_DEBUG: 1
     ports:
-    - "8080:8080"
+    - 8080:8080
     volumes:
-    - /srv/mediawiki/images:/images
-    - /srv/mediawiki/data:/data
+    - mediawiki_images:/images
+    - mediawiki_data:/data
     #- ./../../../testdata/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
     #- ./../../../testdata/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+volumes:
+  mediawiki_images:
+  mediawiki_data:

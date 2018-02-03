@@ -77,15 +77,15 @@ docker run --name=some-mysql \
 -e MYSQL_USER=wikiuser \
 -e MYSQL_PASSWORD=mysecret \
 -e MYSQL_RANDOM_ROOT_PASSWORD=1 \
--v /srv/mediawiki/mysql:/var/lib/mysql \
+-v /var/mediawiki/mysql:/var/lib/mysql \
 -d mysql:5.7
 ```
 
 Start MediaWiki container.
 
 ```
-docker run --name some-wiki \
---link some-mysql:mysql \
+docker run --name mediawiki_wiki \
+--link mediawiki_mysql:mysql \
 -p 8080:8080 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
@@ -97,20 +97,20 @@ docker run --name some-wiki \
 -e MEDIAWIKI_DB_USER=wikiuser \
 -e MEDIAWIKI_DB_PASSWORD=mysecret \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
--v /srv/mediawiki/images:/images \
+-v /var/mediawiki/images:/images \
 -d kristophjunge/mediawiki
 ```
 
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -it some-wiki /script/install.sh <username> <password>
+$ docker exec -it mediawiki_wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -it some-wiki /script/update.sh
+$ docker exec -it mediawiki_wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -135,7 +135,7 @@ See Docker Compose [example](https://github.com/kristophjunge/docker-mediawiki/b
 Start MediaWiki container.
 
 ```
-docker run --name=some-wiki \
+docker run --name=mediawiki_wiki \
 -p 8080:8080 \
 -e MEDIAWIKI_SERVER=http://localhost:8080 \
 -e MEDIAWIKI_SITENAME=MyWiki \
@@ -144,21 +144,21 @@ docker run --name=some-wiki \
 -e MEDIAWIKI_DB_NAME=wikidb \
 -e MEDIAWIKI_ENABLE_UPLOADS=1 \
 -e MEDIAWIKI_ENABLE_VISUAL_EDITOR=1 \
--v /srv/mediawiki/images:/images \
--v /srv/mediawiki/data:/data \
+-v /var/mediawiki/images:/images \
+-v /var/mediawiki/data:/data \
 -d kristophjunge/mediawiki
 ```
 
 Create a new database with the install script. Insert username and password for your admin account.
 
 ```
-$ docker exec -it some-wiki /script/install.sh <username> <password>
+$ docker exec -it mediawiki_wiki /script/install.sh <username> <password>
 ```
 
 If you are using an existing database run the update script instead.
 
 ```
-$ docker exec -it some-wiki /script/update.sh
+$ docker exec -it mediawiki_wiki /script/update.sh
 ```
 
 Copy the secret key that the install script dumps or find the variable `$wgSecretKey` in your previous `LocalSettings.php` file and put it into an environment variable.
@@ -198,7 +198,7 @@ To enable file uploads set the environment variable `MEDIAWIKI_ENABLE_UPLOADS` t
 Mount a writable volume to the images folder.
 
 ```
--v /srv/mediawiki/images:/images
+-v /var/mediawiki/images:/images
 ```
 
 Which file extensions are allowed for uploading can be controlled with the environment variable `MEDIAWIKI_FILE_EXTENSIONS`.
@@ -237,7 +237,7 @@ If you know the security implications you can disable peer verification by setti
 You can setup your own logo by mounting a PNG file.
 
 ```
--v ./srv/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
+-v ./var/mediawiki/logo.png:/var/www/mediawiki/resources/assets/wiki.png:ro
 ```
 
 
@@ -259,7 +259,7 @@ The default skins are packaged with the container:
 You can add more skins by mounting them.
 
 ```
--v ./srv/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
+-v ./var/mediawiki/skins/MyOtherSkin:/var/www/mediawiki/skins/MyOtherSkin:ro
 ```
 
 
@@ -279,7 +279,7 @@ Make sure that you set the `MEDIAWIKI_SERVER` environment variable to the outsid
 You can add more extensions by mounting them.
 
 ```
--v ./srv/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
+-v ./var/mediawiki/extensions/MyOtherExtension:/var/www/mediawiki/extensions/MyOtherExtension:ro
 ```
 
 
@@ -288,7 +288,7 @@ You can add more extensions by mounting them.
 You can add own PHP configuration values by mounting an additional configuration file that is loaded at the end of the generic configuration file.
 
 ```
--v /srv/mediawiki/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
+-v /var/mediawiki/ExtraLocalSettings.php:/var/www/mediawiki/ExtraLocalSettings.php:ro
 ```
 
 A good starting point is to copy the file that's inside the container. You can display its content with the following command.
@@ -305,7 +305,7 @@ Beside the docker like configuration with environment variables you still can us
 However this will make all environment variables unusable except `MEDIAWIKI_HTTPS` and `MEDIAWIKI_SMTP_SSL_VERIFY_PEER`.
 
 ```
--v /srv/mediawiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php:ro
+-v /var/mediawiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php:ro
 ```
 
 
@@ -326,7 +326,7 @@ Default for start and min is `1`. Default for max is `20`, so up to `20` worker 
 For a more advanced configuration of PHP-FPM mount a configuration file to `/usr/local/etc/php-fpm.conf`. 
 
 ```
--v /srv/mediawiki/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+-v /var/mediawiki/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
 ```
 
 The number of Parsoid worker processes can be configured with the environment variable `PARSOID_WORKERS`.
@@ -340,7 +340,7 @@ Default is `1`. Please note that the number of Parsoid workers is not managed dy
 For a more advanced configuration of Parsoid mount a configuration file to `/usr/lib/parsoid/src/config.yaml`.
 
 ```
--v /srv/mediawiki/config.yaml:/usr/lib/parsoid/src/config.yaml:ro
+-v /var/mediawiki/config.yaml:/usr/lib/parsoid/src/config.yaml:ro
 ```
 
 
