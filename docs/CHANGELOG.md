@@ -1,3 +1,13 @@
+## 2018-02-02 1.30.0-1
+
+* Updated to MediaWiki 1.30.0.
+* BREAKING: HTTPS is not longer supported by the container. HTTPS setups should be done using proxy containers. The environment variable `MEDIAWIKI_HTTPS` was removed.
+* BREAKING: The port exposed by the container is now 8080 instead of 80 for compatibility with environments where lower ports are in use or not allowed.
+* Updated to docker-compose version 3.
+* BREAKING: Removed deprecated environment variable `MEDIAWIKI_ENABLE_VISUAL_EDITOR`. Please use `MEDIAWIKI_EXTENSION_VISUAL_EDITOR_ENABLED`.
+* Removed build arguments `MEDIAWIKI_USER_UID`, `MEDIAWIKI_USER_GID`. 
+* Reformatted `README.md` and `CHANGELOG.md`.
+
 ## 2018-02-01 1.29.2-1
 
 * Updated to MediaWiki 1.29.2.
