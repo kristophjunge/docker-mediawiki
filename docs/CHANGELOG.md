@@ -1,3 +1,8 @@
+## 2018-02-04 v1.30.0-2
+
+* Switched to release tag names prepended with "v".
+* Fixed contribution links in README.md.
+
 ## 2018-02-02 1.30.0-1
 
 * Updated to MediaWiki 1.30.0.
